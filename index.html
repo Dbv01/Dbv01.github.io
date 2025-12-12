@@ -3,211 +3,934 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт на GitHub</title>
+    <title>TechStore | Интернет-магазин электроники</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #9ca3af;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
-            padding: 20px;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
         }
         
-        .container {
-            max-width: 1200px;
+        /* Навигация */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
         }
         
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        h1 {
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        .logo i {
+            color: var(--secondary);
         }
         
-        .subtitle {
-            font-size: 1.3em;
-            opacity: 0.9;
-            margin-bottom: 25px;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
         
-        .features {
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 8rem 5% 5rem;
+            margin-top: 70px;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
         
-        .feature-card {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 30px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .hero-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
         
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
         }
         
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-        
-        .button {
+        .btn {
             display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            padding: 1rem 2.5rem;
+            background: var(--accent);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
         }
         
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.6);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
-        .counter {
-            font-size: 5em;
-            font-weight: bold;
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .hero-image {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateY(-5deg);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+        
+        /* О компании */
+        .about {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
             text-align: center;
-            margin: 40px 0;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #4b5563;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Ассортимент */
+        .products {
+            padding: 6rem 5%;
+            background: #f1f5f9;
+            border-radius: 30px;
+            margin: 2rem 5%;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        
+        .product-image i {
+            font-size: 4rem;
+            color: var(--primary);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            font-weight: 600;
+        }
+        
+        .product-price {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: #1d4ed8;
+        }
+        
+        /* Контакты */
+        .contact {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        
+        .telegram-username {
+            background: #0088cc;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Футер */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+        
+        .footer-col h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .hero-content,
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
+            .nav-links {
+                display: none;
             }
             
-            .container {
-                padding: 20px 10px;
+            .hero-text h1 {
+                font-size: 2.2rem;
             }
             
-            .features {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats {
                 grid-template-columns: 1fr;
             }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 Мой сайт на GitHub Pages</h1>
-            <p class="subtitle">Этот сайт создан прямо в GitHub и работает на технологии GitHub Pages</p>
-            <a href="#features" class="button">Узнать больше</a>
-        </header>
-        
-        <div class="counter" id="counter">0</div>
-        
-        <div class="features" id="features">
-            <div class="feature-card">
-                <div class="feature-icon">💻</div>
-                <h3>Создан в браузере</h3>
-                <p>Весь код был написан и загружен прямо через интерфейс GitHub, без установки программ!</p>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-laptop-code"></i> TechStore
+            </a>
+            
+            <div class="nav-links">
+                <a href="#home">Главная</a>
+                <a href="#about">О компании</a>
+                <a href="#products">Ассортимент</a>
+                <a href="#contact">Контакты</a>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Мгновенная публикация</h3>
-                <p>Как только ты сохранишь код (сделаешь commit), сайт автоматически появится в интернете</p>
+            <a href="#" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">3</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero fade-in">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Техника будущего уже сегодня</h1>
+                <p>Мы предлагаем самые современные гаджеты и электронику по лучшим ценам. Качество, надёжность и инновации в каждом продукте.</p>
+                <a href="#products" class="btn">Смотреть каталог</a>
+                <a href="#about" class="btn btn-outline">О компании</a>
+            </div>
+            <div class="hero-image">
+                <div class="product-image">
+                    <i class="fas fa-headphones"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section id="about" class="about fade-in">
+        <h2 class="section-title">О компании TechStore</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p><strong>TechStore</strong> — это ведущий онлайн-магазин электроники, основанный в 2020 году. Мы стремимся сделать передовые технологии доступными для каждого.</p>
+                <p>Наша миссия — предоставлять клиентам лучшие устройства по конкурентным ценам, сопровождая покупку качественным сервисом и поддержкой.</p>
+                <p>Мы работаем только с проверенными производителями и гарантируем подлинность всей продукции. Наш ассортимент регулярно обновляется в соответствии с последними технологическими трендами.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Довольных клиентов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Товаров в каталоге</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Поддержка</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="hero-image">
+                    <div class="product-image" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">
+                        <i class="fas fa-gem" style="color: white; font-size: 5rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ассортимент -->
+    <section id="products" class="products fade-in">
+        <h2 class="section-title">Наш ассортимент</h2>
+        <div class="products-grid">
+            <!-- Товар 1 -->
+            <div class="product-card">
+                <div class="badge">Хит продаж</div>
+                <div class="product-image">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Ноутбуки</div>
+                    <h3 class="product-title">Gaming Laptop Pro X</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>Мощный игровой ноутбук с RTX 4070 и процессором Intel i9</p>
+                    <div class="product-price">129 990 ₽</div>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>Доступен везде</h3>
-                <p>Твой сайт будет доступен по адресу: <strong>твойлогин.github.io</strong> с любого устройства</p>
+            <!-- Товар 2 -->
+            <div class="product-card">
+                <div class="badge">Новинка</div>
+                <div class="product-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Смартфоны</div>
+                    <h3 class="product-title">Smartphone Ultra 14 Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>Флагманский смартфон с камерой 200 МП и 120 Гц экраном</p>
+                    <div class="product-price">89 990 ₽</div>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+            
+            <!-- Товар 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Аудио</div>
+                    <h3 class="product-title">Wireless Headphones Max</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Беспроводные наушники с шумоподавлением и 40ч работой</p>
+                    <div class="product-price">24 990 ₽</div>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+            
+            <!-- Товар 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-smartwatch"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Гаджеты</div>
+                    <h3 class="product-title">Smart Watch Health 3</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>Умные часы с отслеживанием здоровья и NFC</p>
+                    <div class="product-price">18 490 ₽</div>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact fade-in">
+        <h2 class="section-title">Контакты</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Свяжитесь с нами</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h4>Владелец</h4>
+                        <p><strong>Даниил</strong></p>
+                        <p>Основатель и CEO TechStore</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div>
+                        <h4>Telegram</h4>
+                        <p>Для быстрой связи и консультаций</p>
+                        <div class="telegram-username">@dtwo1</div>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>hello@techstore.ru</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Время работы</h4>
+                        <p>Пн-Пт: 9:00-20:00</p>
+                        <p>Сб-Вс: 10:00-18:00</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3 style="margin-bottom: 2rem; color: var(--dark);">Отправить сообщение</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>TechStore</h4>
+                <p>Лучшая электроника по лучшим ценам. Качество и надёжность с 2020 года.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Категории</h4>
+                <div class="footer-links">
+                    <a href="#">Ноутбуки</a>
+                    <a href="#">Смартфоны</a>
+                    <a href="#">Планшеты</a>
+                    <a href="#">Наушники</a>
+                    <a href="#">Умные часы</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Помощь</h4>
+                <div class="footer-links">
+                    <a href="#">Доставка и оплата</a>
+                    <a href="#">Гарантия</a>
+                    <a href="#">Возврат</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <div class="footer-links">
+                    <p><i class="fas fa-user" style="margin-right: 10px;"></i> Даниил</p>
+                    <p><i class="fab fa-telegram" style="margin-right: 10px;"></i> @dtwo1</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> hello@techstore.ru</p>
+                </div>
             </div>
         </div>
         
-        <div style="text-align: center; margin-top: 60px;">
-            <p style="font-size: 1.1em; margin-bottom: 20px;">Попробуй нажать кнопку ниже 👇</p>
-            <button onclick="changeColor()" style="padding: 15px 30px; font-size: 1.2em; cursor: pointer; border: none; border-radius: 10px; background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; font-weight: bold;">
-                Сменить цвет фона
-            </button>
+        <div class="copyright">
+            <p>&copy; 2024 TechStore. Все права защищены.</p>
+            <p>Сайт создан и размещён на GitHub Pages</p>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // Анимация счётчика
-        let counter = document.getElementById('counter');
-        let count = 0;
+        // Простая корзина
+        let cartItems = 3;
         
-        function updateCounter() {
-            if (count < 100) {
-                count++;
-                counter.textContent = count;
-                setTimeout(updateCounter, 30);
-            }
-        }
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                cartItems++;
+                document.querySelector('.cart-count').textContent = cartItems;
+                
+                // Анимация кнопки
+                this.textContent = 'Добавлено!';
+                this.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    this.textContent = 'В корзину';
+                    this.style.background = '';
+                }, 1500);
+            });
+        });
         
-        // Запускаем счётчик при загрузке страницы
-        window.onload = function() {
-            updateCounter();
+        // Форма обратной связи
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+        
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Анимация при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
         
-        // Функция смены цвета фона
-        function changeColor() {
-            const colors = [
-                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-            ];
-            
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.body.style.background = randomColor;
-        }
-        
-        // Добавляем эффект параллакса для карточек
-        document.addEventListener('mousemove', function(e) {
-            const cards = document.querySelectorAll('.feature-card');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            cards.forEach((card, index) => {
-                const speed = (index + 1) * 0.5;
-                const x = (mouseX * speed * 20) - 10;
-                const y = (mouseY * speed * 20) - 10;
-                
-                card.style.transform = `translate(${x}px, ${y}px)`;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
             });
+        }, observerOptions);
+        
+        // Наблюдаем за всеми секциями
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Обновляем год в футере
+        document.addEventListener('DOMContentLoaded', function() {
+            const year = new Date().getFullYear();
+            const copyrightText = document.querySelector('.copyright p');
+            if(copyrightText) {
+                copyrightText.innerHTML = copyrightText.innerHTML.replace('2024', year);
+            }
         });
     </script>
 </body>
