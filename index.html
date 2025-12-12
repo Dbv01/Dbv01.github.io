@@ -1699,59 +1699,56 @@
     </div>
 
     <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА -->
-    <div id="checkout-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Данные для доставки</h3>
-                <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
+<div id="checkout-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Данные для доставки</h3>
+            <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
+        </div>
+        
+        <!-- ФОРМА -->
+        <form id="checkout-form" class="auth-form" style="padding: 0 40px 40px;">
+            <div class="auth-form-group">
+                <label>ФИО *</label>
+                <input type="text" id="checkout-name" placeholder="Иванов Иван Иванович" required>
             </div>
             
-            <!-- ФОРМА -->
-            <form id="checkout-form" class="auth-form" style="padding: 0 40px 40px;">
-                <div class="auth-form-group">
-                    <label>ФИО *</label>
-                    <input type="text" id="checkout-name" placeholder="Иванов Иван Иванович" required>
+            <div class="auth-form-group">
+                <label>Телефон *</label>
+                <input type="tel" id="checkout-phone" placeholder="+7 (900) 123-45-67" required>
+            </div>
+            
+            <div class="auth-form-group">
+                <label>Email</label>
+                <input type="email" id="checkout-email" placeholder="email@example.com">
+            </div>
+            
+            <div class="auth-form-group">
+                <label>Адрес доставки *</label>
+                <textarea id="checkout-address" rows="3" placeholder="Город, улица, дом, квартира" required></textarea>
+            </div>
+            
+            <div class="auth-form-group">
+                <label>Комментарий к заказу</label>
+                <textarea id="checkout-comment" rows="2" placeholder="Например, код домофона или удобное время"></textarea>
+            </div>
+            
+            <!-- ИТОГО И КНОПКА ПОДТВЕРЖДЕНИЯ -->
+            <div style="background: var(--light); padding: 20px; border-radius: 12px; margin: 30px 0;">
+                <div class="summary-row" style="margin-bottom: 10px;">
+                    <span>К оплате:</span>
+                    <span id="checkout-summary-total">0 ₽</span>
                 </div>
-                
-                <div class="auth-form-group">
-                    <label>Телефон *</label>
-                    <input type="tel" id="checkout-phone" placeholder="+7 (900) 123-45-67" required>
-                </div>
-                
-                <div class="auth-form-group">
-                    <label>Email</label>
-                    <input type="email" id="checkout-email" placeholder="email@example.com">
-                </div>
-                
-                <div class="auth-form-group">
-                    <label>Адрес доставки *</label>
-                    <textarea id="checkout-address" rows="3" placeholder="Город, улица, дом, квартира" required></textarea>
-                </div>
-                
-                <div class="auth-form-group">
-                    <label>Комментарий к заказу</label>
-                    <textarea id="checkout-comment" rows="2" placeholder="Например, код домофона или удобное время"></textarea>
-                </div>
-                
-                <!-- ИТОГО И КНОПКА ПОДТВЕРЖДЕНИЯ -->
-                <div style="background: var(--light); padding: 20px; border-radius: 12px; margin: 30px 0;">
-                    <div class="summary-row" style="margin-bottom: 10px;">
-                        <span>К оплате:</span>
-                        <span id="checkout-summary-total">0 ₽</span>
-                    </div>
-                    <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">Оплата осуществляется курьеру при получении</p>
-                </div>
-                
-                <button type="button" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px;" onclick="processCheckout()">
-                    <i class="fas fa-check-circle"></i> Подтвердить заказ
-                </button>
-                            <!-- ДОБАВЬ ЭТУ КНОПКУ -->
+                <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">Оплата осуществляется курьеру при получении</p>
+            </div>
+            
+            <!-- ЭТУ КНОПКУ ДОБАВЬ В КОНЕЦ ФОРМЫ -->
             <button type="button" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px; background: var(--accent); color: white; border: none; border-radius: 16px; cursor: pointer;" onclick="processCheckout()">
                 <i class="fas fa-check-circle"></i> Подтвердить заказ
             </button>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
     <!-- УВЕДОМЛЕНИЕ -->
     <div id="notification" class="notification">
