@@ -289,7 +289,7 @@
             margin: 0 auto;
         }
 
-        /* О КОМПАНИИ (НОВАЯ СЕКЦИЯ) */
+        /* О КОМПАНИИ */
         .about-company {
             background: white;
             border-radius: var(--radius);
@@ -649,7 +649,7 @@
             background: white;
             border-radius: 24px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             max-height: 90vh;
             overflow: hidden;
             box-shadow: var(--shadow-heavy);
@@ -699,6 +699,42 @@
         .modal-close:hover {
             background: var(--light);
             color: var(--dark);
+        }
+
+        /* КАТЕГОРИИ-ФИЛЬТРЫ В КАТАЛОГЕ */
+        .categories-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 40px 30px;
+            border-bottom: 1px solid var(--light-dark);
+            margin-bottom: 40px;
+        }
+
+        .category-filter {
+            padding: 12px 24px;
+            background: var(--light);
+            border-radius: 12px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-filter:hover {
+            background: var(--light-dark);
+            transform: translateY(-2px);
+        }
+
+        .category-filter.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
 
         /* ТОВАРЫ В МОДАЛКЕ */
@@ -1152,6 +1188,14 @@
                 flex-direction: column;
                 gap: 30px;
             }
+            
+            .categories-filters {
+                padding: 0 24px 30px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
         }
 
         @media (max-width: 480px) {
@@ -1173,6 +1217,15 @@
             
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .categories-filters {
+                justify-content: center;
+            }
+            
+            .category-filter {
+                padding: 10px 16px;
+                font-size: 14px;
             }
         }
 
@@ -1290,7 +1343,7 @@
         </div>
     </section>
 
-    <!-- О КОМПАНИИ (НОВАЯ СЕКЦИЯ) -->
+    <!-- О КОМПАНИИ -->
     <section id="about" class="section">
         <div class="container">
             <div class="about-company">
@@ -1468,10 +1521,10 @@
                 <div>
                     <h4>Категории</h4>
                     <ul class="footer-links">
-                        <li><a href="#" onclick="openCategory('smartphones')">Смартфоны</a></li>
-                        <li><a href="#" onclick="openCategory('tablets')">Планшеты</a></li>
-                        <li><a href="#" onclick="openCategory('laptops')">Ноутбуки</a></li>
-                        <li><a href="#" onclick="openCategory('tv')">Телевизоры</a></li>
+                        <li><a href="#" onclick="openProductsModal('smartphones')">Смартфоны</a></li>
+                        <li><a href="#" onclick="openProductsModal('tablets')">Планшеты</a></li>
+                        <li><a href="#" onclick="openProductsModal('laptops')">Ноутбуки</a></li>
+                        <li><a href="#" onclick="openProductsModal('tv')">Телевизоры</a></li>
                     </ul>
                 </div>
                 
@@ -1525,47 +1578,18 @@
                 <h3 class="modal-title" id="products-title">Каталог товаров</h3>
                 <button class="modal-close" onclick="closeModal('products-modal')">&times;</button>
             </div>
+            
+            <!-- ФИЛЬТРЫ КАТЕГОРИЙ -->
+            <div class="categories-filters" id="category-filters">
+                <!-- Категории будут добавлены через JS -->
+            </div>
+            
             <div class="products-container">
-                <!-- КАТЕГОРИИ ТОВАРОВ В МОДАЛКЕ -->
-                <div class="categories-grid" style="margin-bottom: 40px;">
-                    <div class="category-card" onclick="openCategory('smartphones')">
-                        <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 60px; margin-bottom: 20px;">📱</div>
-                            <h3 style="font-size: 24px; margin-bottom: 12px;">Смартфоны</h3>
-                            <p style="color: var(--gray);">iPhone, Samsung, Xiaomi</p>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card" onclick="openCategory('tablets')">
-                        <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 60px; margin-bottom: 20px;">📱</div>
-                            <h3 style="font-size: 24px; margin-bottom: 12px;">Планшеты</h3>
-                            <p style="color: var(--gray);">iPad, Galaxy Tab, Huawei</p>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card" onclick="openCategory('laptops')">
-                        <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 60px; margin-bottom: 20px;">💻</div>
-                            <h3 style="font-size: 24px; margin-bottom: 12px;">Ноутбуки</h3>
-                            <p style="color: var(--gray);">MacBook, ASUS, Dell</p>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card" onclick="openCategory('tv')">
-                        <div style="text-align: center; padding: 40px;">
-                            <div style="font-size: 60px; margin-bottom: 20px;">📺</div>
-                            <h3 style="font-size: 24px; margin-bottom: 12px;">Телевизоры</h3>
-                            <p style="color: var(--gray);">LG, Samsung, Sony</p>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- ТОВАРЫ БУДУТ ОТОБРАЖАТЬСЯ ЗДЕСЬ -->
                 <div id="products-content">
-                    <p style="text-align: center; color: var(--gray); padding: 60px 0;">
-                        Выберите категорию товаров для просмотра
-                    </p>
+                    <div class="products-grid">
+                        <!-- Товары будут вставлены через JS -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -1613,11 +1637,12 @@
         // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
         let currentUser = null;
         let cart = [];
+        let currentCategory = 'all'; // Текущая выбранная категория
         
         // Данные товаров по категориям
         const productsData = {
             smartphones: [
-                { name: "iPhone 15 Pro", price: 109990, description: "Титановый корпус, процессор A17 Pro", icon: "🍎" },
+                { name: "iPhone 15 Pro", price: 109990, description: "Титановый корпус, процессор A17 Pro", icon: "📱" },
                 { name: "Samsung Galaxy S24 Ultra", price: 129990, description: "S Pen, камера 200 МП", icon: "📱" },
                 { name: "Xiaomi 14 Pro", price: 89990, description: "Камера Leica, Snapdragon 8 Gen 3", icon: "📱" },
                 { name: "Google Pixel 8 Pro", price: 94990, description: "Тензорный чип G3", icon: "📱" },
@@ -1651,6 +1676,17 @@
                 { name: "Garmin Fenix 7", price: 59990, description: "Для экстремальных видов спорта", icon: "⌚" }
             ]
         };
+
+        // Категории для фильтров
+        const categories = [
+            { id: 'all', name: 'Все товары', icon: '📦' },
+            { id: 'smartphones', name: 'Смартфоны', icon: '📱' },
+            { id: 'tablets', name: 'Планшеты', icon: '📱' },
+            { id: 'laptops', name: 'Ноутбуки', icon: '💻' },
+            { id: 'tv', name: 'Телевизоры', icon: '📺' },
+            { id: 'headphones', name: 'Наушники', icon: '🎧' },
+            { id: 'watches', name: 'Часы', icon: '⌚' }
+        ];
 
         // ===== ИНИЦИАЛИЗАЦИЯ =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -1815,57 +1851,111 @@
         }
 
         // ===== ОТКРЫТИЕ КАТАЛОГА ТОВАРОВ =====
-        function openProductsModal() {
-            // Сбрасываем содержимое при открытии каталога
-            document.getElementById('products-content').innerHTML = `
-                <p style="text-align: center; color: var(--gray); padding: 60px 0;">
-                    Выберите категорию товаров для просмотра
-                </p>
-            `;
+        function openProductsModal(categoryId = 'all') {
+            currentCategory = categoryId;
+            
+            // Создаем фильтры категорий
+            const filtersContainer = document.getElementById('category-filters');
+            filtersContainer.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const isActive = cat.id === categoryId;
+                filtersContainer.innerHTML += `
+                    <button class="category-filter ${isActive ? 'active' : ''}" onclick="filterCategory('${cat.id}')">
+                        ${cat.icon} ${cat.name}
+                    </button>
+                `;
+            });
+            
+            // Показываем товары
+            showProducts();
+            
             document.getElementById('products-title').textContent = 'Каталог товаров';
             openModal('products-modal');
         }
 
-        // ===== КАТЕГОРИИ И ТОВАРЫ =====
-        function openCategory(categoryId) {
-            const categoryTitles = {
-                smartphones: 'Смартфоны',
-                tablets: 'Планшеты',
-                laptops: 'Ноутбуки',
-                tv: 'Телевизоры',
-                headphones: 'Наушники',
-                watches: 'Умные часы'
-            };
+        // ===== ФИЛЬТРАЦИЯ ТОВАРОВ ПО КАТЕГОРИИ =====
+        function filterCategory(categoryId) {
+            currentCategory = categoryId;
             
-            const products = productsData[categoryId] || [];
-            const title = categoryTitles[categoryId] || 'Товары';
+            // Обновляем активную кнопку
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
             
-            document.getElementById('products-title').textContent = title;
+            event.target.classList.add('active');
             
-            let productsHTML = '';
-            if (products.length === 0) {
-                productsHTML = '<p style="text-align: center; color: var(--gray);">Товары временно отсутствуют</p>';
+            // Показываем товары
+            showProducts();
+        }
+
+        // ===== ПОКАЗАТЬ ТОВАРЫ =====
+        function showProducts() {
+            const productsContainer = document.getElementById('products-content');
+            
+            // Собираем все товары в один массив
+            let allProducts = [];
+            
+            if (currentCategory === 'all') {
+                // Показываем все товары
+                for (const category in productsData) {
+                    productsData[category].forEach(product => {
+                        allProducts.push({
+                            ...product,
+                            category: category
+                        });
+                    });
+                }
             } else {
-                productsHTML = '<div class="products-grid">';
-                products.forEach(product => {
-                    productsHTML += `
-                        <div class="product-card">
-                            <div class="product-icon">${product.icon}</div>
-                            <h4 class="product-name">${product.name}</h4>
-                            <div class="product-price">${product.price.toLocaleString()} ₽</div>
-                            <p class="product-description">${product.description}</p>
-                            <div class="product-actions">
-                                <button class="btn-add" onclick="addToCart('${categoryId}', '${product.name}', ${product.price})">
-                                    <i class="fas fa-cart-plus"></i> В корзину
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-                productsHTML += '</div>';
+                // Показываем товары выбранной категории
+                const categoryProducts = productsData[currentCategory] || [];
+                allProducts = categoryProducts.map(product => ({
+                    ...product,
+                    category: currentCategory
+                }));
             }
             
-            document.getElementById('products-content').innerHTML = productsHTML;
+            if (allProducts.length === 0) {
+                productsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 60px 0;">Товары временно отсутствуют</p>';
+                return;
+            }
+            
+            // Сортируем по цене (от дорогих к дешевым)
+            allProducts.sort((a, b) => b.price - a.price);
+            
+            // Показываем товары
+            let productsHTML = '<div class="products-grid">';
+            
+            allProducts.forEach(product => {
+                productsHTML += `
+                    <div class="product-card">
+                        <div class="product-icon">${product.icon}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <div>
+                                <h4 class="product-name">${product.name}</h4>
+                                <div style="font-size: 13px; color: var(--gray); background: var(--light); padding: 4px 8px; border-radius: 8px; display: inline-block;">
+                                    ${getCategoryName(product.category)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-actions">
+                            <button class="btn-add" onclick="addToCart('${product.category}', '${product.name}', ${product.price})">
+                                <i class="fas fa-cart-plus"></i> В корзину
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            productsHTML += '</div>';
+            productsContainer.innerHTML = productsHTML;
+        }
+
+        function getCategoryName(categoryId) {
+            const category = categories.find(cat => cat.id === categoryId);
+            return category ? category.name : categoryId;
         }
 
         // ===== КОРЗИНА =====
