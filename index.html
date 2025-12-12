@@ -913,6 +913,7 @@
             padding: 32px 40px;
             background: var(--light);
             border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: block !important; /* КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
         }
 
         .summary-row {
@@ -1207,34 +1208,14 @@
                 grid-template-columns: 1fr;
             }
             
-            /* МОБИЛЬНАЯ НАВИГАЦИЯ - КЛЮЧЕВЫЕ ИЗМЕНЕНИЯ */
+            /* МОБИЛЬНАЯ НАВИГАЦИЯ */
             .nav-links {
                 display: none;
             }
             
-            /* Контейнер для кнопок мобильной навигации */
-            .mobile-nav-actions {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            /* Делаем кнопки навигации видными */
+            /* Делаем кнопку корзины видимой на мобильных */
             .nav-actions {
-                display: none; /* Скрываем десктопную версию */
-            }
-            
-            /* Делаем кнопку корзины всегда видимой */
-            .mobile-nav-actions .btn-icon {
                 display: flex;
-                background: var(--accent);
-                color: white;
-            }
-            
-            /* Кнопка входа для мобильных */
-            .mobile-nav-actions .btn-icon.user-btn {
-                background: var(--light-dark);
-                color: var(--dark);
             }
             
             /* Уменьшаем логотип на мобильных */
@@ -1246,6 +1227,18 @@
                 width: 32px;
                 height: 32px;
                 font-size: 18px;
+            }
+            
+            /* Делаем кнопки на мобильных больше */
+            .btn-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .cart-count {
+                font-size: 14px;
+                min-width: 24px;
+                height: 24px;
             }
             
             .modal-header {
@@ -1385,7 +1378,7 @@
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </div>
                 
-                <!-- ОБЫЧНАЯ НАВИГАЦИЯ (десктоп) -->
+                <!-- ЕДИНАЯ НАВИГАЦИЯ -->
                 <div class="nav-actions">
                     <div class="user-menu" id="user-section">
                         <button class="btn-icon" onclick="showAuthModal('login')">
@@ -1395,20 +1388,6 @@
                     <button class="btn-icon" onclick="openCart()">
                         <i class="fas fa-shopping-bag"></i>
                         <span class="cart-count" id="cart-count">0</span>
-                    </button>
-                </div>
-                
-                <!-- МОБИЛЬНАЯ НАВИГАЦИЯ -->
-                <div class="mobile-nav-actions">
-                    <!-- Кнопка авторизации для мобильных -->
-                    <button class="btn-icon user-btn" onclick="showAuthModal('login')">
-                        <i class="fas fa-user"></i>
-                    </button>
-                    
-                    <!-- Кнопка корзины для мобильных -->
-                    <button class="btn-icon" onclick="openCart()" id="mobile-cart-btn">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count" id="mobile-cart-count">0</span>
                     </button>
                 </div>
             </div>
@@ -1696,7 +1675,8 @@
                     <!-- Товары в корзине будут добавлены через JS -->
                 </div>
             </div>
-            <div class="cart-summary">
+            <!-- ЭТО КЛЮЧЕВАЯ ЧАСТЬ - СУММА И КНОПКА -->
+            <div class="cart-summary" style="display: block !important;">
                 <div class="summary-row">
                     <span>Товары:</span>
                     <span id="cart-subtotal">0 ₽</span>
@@ -1865,20 +1845,12 @@
                         Выйти
                     </button>
                 `;
-                
-                // Обновляем мобильную версию
-                document.querySelector('.mobile-nav-actions .user-btn').innerHTML = `
-                    <div class="user-avatar">${firstLetter}</div>
-                `;
             } else {
                 userSection.innerHTML = `
                     <button class="btn-icon" onclick="showAuthModal('login')">
                         <i class="fas fa-user"></i>
                     </button>
                 `;
-                
-                // Обновляем мобильную версию
-                document.querySelector('.mobile-nav-actions .user-btn').innerHTML = `<i class="fas fa-user"></i>`;
             }
         }
 
@@ -2077,9 +2049,9 @@
             let productsHTML = '<div class="products-grid">';
             
             allProducts.forEach(product => {
-                // ИСПРАВЛЕНИЕ: Экранируем кавычки в названии товара
-                const safeName = product.name.replace(/'/g, "\\'");
-                const safeCategory = product.category.replace(/'/g, "\\'");
+                // ИСПРАВЛЕНИЕ: Используем специальную функцию для безопасного кодирования
+                const safeName = encodeProductName(product.name);
+                const safeCategory = encodeProductName(product.category);
                 
                 productsHTML += `
                     <div class="product-card">
@@ -2095,7 +2067,7 @@
                         <div class="product-price">${product.price.toLocaleString()} ₽</div>
                         <p class="product-description">${product.description}</p>
                         <div class="product-actions">
-                            <button class="btn-add" onclick="addToCart('${safeCategory}', '${safeName}', ${product.price})">
+                            <button class="btn-add" data-category="${safeCategory}" data-name="${safeName}" data-price="${product.price}">
                                 <i class="fas fa-cart-plus"></i> В корзину
                             </button>
                         </div>
@@ -2105,6 +2077,28 @@
             
             productsHTML += '</div>';
             productsContainer.innerHTML = productsHTML;
+            
+            // Добавляем обработчики кликов после отрисовки товаров
+            setTimeout(() => {
+                document.querySelectorAll('.btn-add').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const category = this.getAttribute('data-category');
+                        const name = this.getAttribute('data-name');
+                        const price = parseFloat(this.getAttribute('data-price'));
+                        addToCart(category, decodeProductName(name), price);
+                    });
+                });
+            }, 100);
+        }
+
+        // Функция для безопасного кодирования названий
+        function encodeProductName(name) {
+            return encodeURIComponent(name);
+        }
+
+        // Функция для декодирования названий
+        function decodeProductName(encodedName) {
+            return decodeURIComponent(encodedName);
         }
 
         function getCategoryName(categoryId) {
@@ -2155,9 +2149,7 @@
 
         function updateCartCount() {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            // Обновляем счетчик на обеих кнопках корзины
             document.getElementById('cart-count').textContent = totalItems;
-            document.getElementById('mobile-cart-count').textContent = totalItems;
         }
 
         function updateCartModal() {
