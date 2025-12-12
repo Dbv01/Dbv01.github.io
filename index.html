@@ -1665,7 +1665,7 @@
         </div>
     </div>
 
-    <!-- НОВАЯ МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА -->
+    <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА -->
     <div id="checkout-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1709,7 +1709,7 @@
                     <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">Оплата осуществляется курьеру при получении</p>
                 </div>
                 
-                <button type="submit" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px;">
+                <button type="button" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px;" onclick="processCheckout()">
                     <i class="fas fa-check-circle"></i> Подтвердить заказ
                 </button>
             </form>
@@ -1789,15 +1789,6 @@
                 showNotification(`Спасибо, ${name}! Мы свяжемся с вами в течение дня.`, 'success');
                 this.reset();
             });
-            
-            // Инициализируем форму оформления заказа
-            const checkoutForm = document.getElementById('checkout-form');
-            if (checkoutForm) {
-                checkoutForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    processCheckout();
-                });
-            }
         });
 
         // ===== АВТОРИЗАЦИЯ =====
@@ -2178,6 +2169,8 @@
         }
 
         // ===== ОФОРМЛЕНИЕ ЗАКАЗА =====
+
+        // Функция для показа формы оформления
         function showCheckoutForm() {
             if (!currentUser) {
                 showNotification('Войдите в аккаунт для оформления заказа', 'error');
@@ -2204,6 +2197,7 @@
             openModal('checkout-modal');
         }
 
+        // Основная функция обработки заказа
         function processCheckout() {
             // Собираем данные из формы
             const orderData = {
@@ -2241,6 +2235,7 @@
             showOrderConfirmation(orderId, orderData);
         }
 
+        // Функция сохранения заказа
         function saveOrderToStorage(orderId, orderData) {
             let orders = JSON.parse(localStorage.getItem(`techstore_orders`)) || [];
             orders.unshift({
@@ -2250,6 +2245,7 @@
             localStorage.setItem(`techstore_orders`, JSON.stringify(orders));
         }
 
+        // Функция показа подтверждения заказа
         function showOrderConfirmation(orderId, orderData) {
             // Показываем основное уведомление
             showNotification(`Заказ ${orderId} оформлен! Подробности отправлены на email.`, 'success');
