@@ -1207,8 +1207,70 @@
                 grid-template-columns: 1fr;
             }
             
+            /* МОБИЛЬНАЯ НАВИГАЦИЯ - КЛЮЧЕВЫЕ ИЗМЕНЕНИЯ */
             .nav-links {
                 display: none;
+            }
+            
+            /* Бургер-меню для мобильных */
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                background: var(--light-dark);
+                border-radius: 12px;
+                border: none;
+                cursor: pointer;
+                font-size: 20px;
+                color: var(--dark);
+            }
+            
+            /* Кнопка корзины для мобильных */
+            .mobile-cart-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                background: var(--accent);
+                border-radius: 12px;
+                border: none;
+                cursor: pointer;
+                color: white;
+                font-size: 18px;
+                position: relative;
+                margin-left: 10px;
+            }
+            
+            /* Контейнер для кнопок мобильной навигации */
+            .mobile-nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            /* Делаем кнопку корзины всегда видимой */
+            .nav-actions .btn-icon {
+                display: none;
+            }
+            
+            .mobile-nav-actions .btn-icon {
+                display: flex;
+                background: var(--accent);
+                color: white;
+            }
+            
+            /* Уменьшаем логотип на мобильных */
+            .logo {
+                font-size: 22px;
+            }
+            
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
             }
             
             .modal-header {
@@ -1228,6 +1290,7 @@
             
             .categories-filters {
                 padding: 0 24px 30px;
+                justify-content: center;
             }
             
             .products-grid {
@@ -1347,15 +1410,12 @@
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </div>
                 
-                <div class="nav-actions">
-                    <div class="user-menu" id="user-section">
-                        <button class="btn-icon" onclick="showAuthModal('login')">
-                            <i class="fas fa-user"></i>
-                        </button>
-                    </div>
-                    <button class="btn-icon" onclick="openCart()">
+                <!-- МОБИЛЬНАЯ НАВИГАЦИЯ -->
+                <div class="mobile-nav-actions">
+                    <!-- Кнопка корзины для мобильных -->
+                    <button class="btn-icon" onclick="openCart()" id="mobile-cart-btn">
                         <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count" id="cart-count">0</span>
+                        <span class="cart-count" id="mobile-cart-count">0</span>
                     </button>
                 </div>
             </div>
@@ -2090,7 +2150,10 @@
 
         function updateCartCount() {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            // Обновляем счетчик на обычной кнопке
             document.getElementById('cart-count').textContent = totalItems;
+            // Обновляем счетчик на мобильной кнопке
+            document.getElementById('mobile-cart-count').textContent = totalItems;
         }
 
         function updateCartModal() {
