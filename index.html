@@ -1094,6 +1094,43 @@
             transform: translateY(-2px);
         }
 
+        /* ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА */
+        .checkout-form-group {
+            margin-bottom: 24px;
+        }
+
+        .checkout-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .checkout-form-group input,
+        .checkout-form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .checkout-form-group input:focus,
+        .checkout-form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .checkout-form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
         /* АДАПТИВНОСТЬ */
         @media (max-width: 1024px) {
             .container {
@@ -1571,7 +1608,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ТОВАРОВ (ОТДЕЛЬНАЯ СТРАНИЦА) -->
+    <!-- МОДАЛКА ТОВАРОВ -->
     <div id="products-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1585,7 +1622,6 @@
             </div>
             
             <div class="products-container">
-                <!-- ТОВАРЫ БУДУТ ОТОБРАЖАТЬСЯ ЗДЕСЬ -->
                 <div id="products-content">
                     <div class="products-grid">
                         <!-- Товары будут вставлены через JS -->
@@ -1614,16 +1650,69 @@
                 </div>
                 <div class="summary-row">
                     <span>Доставка:</span>
-                    <span>Бесплатно</span>
+                    <span id="delivery-cost">Бесплатно</span>
                 </div>
                 <div class="summary-row summary-total">
                     <span>Итого:</span>
                     <span id="cart-total">0 ₽</span>
                 </div>
-                <button class="checkout-btn" onclick="checkout()">
+                
+                <!-- КНОПКА "ОФОРМИТЬ ЗАКАЗ" -->
+                <button class="checkout-btn" id="proceed-to-checkout-btn" onclick="showCheckoutForm()">
                     <i class="fas fa-credit-card"></i> Оформить заказ
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- НОВАЯ МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Данные для доставки</h3>
+                <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
+            </div>
+            
+            <!-- ФОРМА -->
+            <form id="checkout-form" class="auth-form" style="padding: 0 40px 40px;">
+                <div class="auth-form-group">
+                    <label>ФИО *</label>
+                    <input type="text" id="checkout-name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                
+                <div class="auth-form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" id="checkout-phone" placeholder="+7 (900) 123-45-67" required>
+                </div>
+                
+                <div class="auth-form-group">
+                    <label>Email</label>
+                    <input type="email" id="checkout-email" placeholder="email@example.com">
+                </div>
+                
+                <div class="auth-form-group">
+                    <label>Адрес доставки *</label>
+                    <textarea id="checkout-address" rows="3" placeholder="Город, улица, дом, квартира" required></textarea>
+                </div>
+                
+                <div class="auth-form-group">
+                    <label>Комментарий к заказу</label>
+                    <textarea id="checkout-comment" rows="2" placeholder="Например, код домофона или удобное время"></textarea>
+                </div>
+                
+                <!-- ИТОГО И КНОПКА ПОДТВЕРЖДЕНИЯ -->
+                <div style="background: var(--light); padding: 20px; border-radius: 12px; margin: 30px 0;">
+                    <div class="summary-row" style="margin-bottom: 10px;">
+                        <span>К оплате:</span>
+                        <span id="checkout-summary-total">0 ₽</span>
+                    </div>
+                    <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">Оплата осуществляется курьеру при получении</p>
+                </div>
+                
+                <button type="submit" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px;">
+                    <i class="fas fa-check-circle"></i> Подтвердить заказ
+                </button>
+            </form>
         </div>
     </div>
 
@@ -1637,7 +1726,7 @@
         // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
         let currentUser = null;
         let cart = [];
-        let currentCategory = 'all'; // Текущая выбранная категория
+        let currentCategory = 'all';
         
         // Данные товаров по категориям
         const productsData = {
@@ -1700,6 +1789,15 @@
                 showNotification(`Спасибо, ${name}! Мы свяжемся с вами в течение дня.`, 'success');
                 this.reset();
             });
+            
+            // Инициализируем форму оформления заказа
+            const checkoutForm = document.getElementById('checkout-form');
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    processCheckout();
+                });
+            }
         });
 
         // ===== АВТОРИЗАЦИЯ =====
@@ -2079,7 +2177,8 @@
             showNotification('Товар удалён из корзины', 'success');
         }
 
-        function checkout() {
+        // ===== ОФОРМЛЕНИЕ ЗАКАЗА =====
+        function showCheckoutForm() {
             if (!currentUser) {
                 showNotification('Войдите в аккаунт для оформления заказа', 'error');
                 showAuthModal('login');
@@ -2091,28 +2190,80 @@
                 return;
             }
             
+            // Подсчитываем итого
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('checkout-summary-total').textContent = total.toLocaleString() + ' ₽';
             
-            // Сохраняем заказ
-            const order = {
-                id: 'ORD-' + Date.now(),
-                userId: currentUser.id,
+            // Заполняем email текущего пользователя, если есть
+            if (currentUser && currentUser.email) {
+                document.getElementById('checkout-email').value = currentUser.email;
+            }
+            
+            // Показываем форму оформления
+            closeModal('cart-modal');
+            openModal('checkout-modal');
+        }
+
+        function processCheckout() {
+            // Собираем данные из формы
+            const orderData = {
+                name: document.getElementById('checkout-name').value.trim(),
+                phone: document.getElementById('checkout-phone').value.trim(),
+                email: document.getElementById('checkout-email').value.trim(),
+                address: document.getElementById('checkout-address').value.trim(),
+                comment: document.getElementById('checkout-comment').value.trim(),
                 items: [...cart],
-                total: total,
-                date: new Date().toISOString(),
-                status: 'Обрабатывается'
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                date: new Date().toLocaleString('ru-RU'),
+                status: 'Новый'
             };
             
-            let orders = JSON.parse(localStorage.getItem(`techstore_orders_${currentUser.id}`)) || [];
-            orders.unshift(order);
-            localStorage.setItem(`techstore_orders_${currentUser.id}`, JSON.stringify(orders));
+            // Проверяем обязательные поля
+            if (!orderData.name || !orderData.phone || !orderData.address) {
+                showNotification('Заполните все обязательные поля (ФИО, Телефон, Адрес)', 'error');
+                return;
+            }
             
-            // Очищаем корзину
+            // Создаем номер заказа
+            const orderId = 'ORD-' + Date.now();
+            
+            // 1. Сохраняем заказ в LocalStorage
+            saveOrderToStorage(orderId, orderData);
+            
+            // 2. Очищаем корзину
             cart = [];
             updateCart();
             
-            showNotification(`Заказ оформлен! Номер: ${order.id}`, 'success');
-            closeModal('cart-modal');
+            // 3. Закрываем модалку и показываем уведомление
+            closeModal('checkout-modal');
+            
+            // 4. Показываем детальное уведомление
+            showOrderConfirmation(orderId, orderData);
+        }
+
+        function saveOrderToStorage(orderId, orderData) {
+            let orders = JSON.parse(localStorage.getItem(`techstore_orders`)) || [];
+            orders.unshift({
+                id: orderId,
+                ...orderData
+            });
+            localStorage.setItem(`techstore_orders`, JSON.stringify(orders));
+        }
+
+        function showOrderConfirmation(orderId, orderData) {
+            // Показываем основное уведомление
+            showNotification(`Заказ ${orderId} оформлен! Подробности отправлены на email.`, 'success');
+            
+            // Дополнительно выводим детали в консоль (для тестирования)
+            console.log('======= ДЕТАЛИ ЗАКАЗА =======');
+            console.log(`Номер: ${orderId}`);
+            console.log(`ФИО: ${orderData.name}`);
+            console.log(`Телефон: ${orderData.phone}`);
+            console.log(`Адрес: ${orderData.address}`);
+            console.log(`Товаров: ${orderData.items.length}`);
+            console.log(`Сумма: ${orderData.total.toLocaleString()} ₽`);
+            console.log(`Дата: ${orderData.date}`);
+            console.log('=============================');
         }
 
         function getCategoryIcon(category) {
