@@ -289,76 +289,120 @@
             margin: 0 auto;
         }
 
-        /* КАТЕГОРИИ ТОВАРОВ */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .category-card {
+        /* О КОМПАНИИ (НОВАЯ СЕКЦИЯ) */
+        .about-company {
             background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.4s;
             position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-heavy);
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 80px 0;
         }
 
-        .category-image {
-            height: 200px;
-            background: linear-gradient(135deg, var(--light-dark), #E0E0E6);
+        .about-content h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--dark);
+            line-height: 1.1;
+        }
+
+        .about-content h2 span {
+            color: var(--accent);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .category-icon {
-            font-size: 80px;
-            color: var(--accent);
-            opacity: 0.9;
-        }
-
-        .category-content {
-            padding: 32px;
-        }
-
-        .category-title {
+            color: white;
             font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
             color: var(--dark);
         }
 
-        .category-description {
+        .feature-content p {
             color: var(--gray);
-            margin-bottom: 24px;
             line-height: 1.6;
         }
 
-        .category-products {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
+        .about-image {
+            position: relative;
         }
 
-        .product-tag {
-            background: var(--light);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--dark);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .about-image-main {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 120px;
+            box-shadow: var(--shadow-heavy);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s;
+        }
+
+        .about-image-main:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--light-dark);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 16px;
+            margin-top: 8px;
         }
 
         /* КОНТАКТЫ */
@@ -1040,6 +1084,16 @@
             .nav-links {
                 gap: 30px;
             }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1076,10 +1130,6 @@
                 width: 100%;
             }
             
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .footer-content {
                 grid-template-columns: 1fr;
             }
@@ -1096,6 +1146,11 @@
             .cart-items,
             .auth-form {
                 padding: 0 24px 24px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 30px;
             }
         }
 
@@ -1198,7 +1253,7 @@
                 
                 <div class="nav-links">
                     <a href="#hero" class="nav-link active">Главная</a>
-                    <a href="#categories" class="nav-link">Товары</a>
+                    <a href="#about" class="nav-link">О компании</a>
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </div>
                 
@@ -1224,9 +1279,9 @@
                 <h1 class="hero-title">Премиум электроника нового поколения</h1>
                 <p class="hero-subtitle">Мы предлагаем только лучшие устройства от ведущих мировых брендов. Качество, стиль и инновации в каждом продукте.</p>
                 <div class="hero-buttons">
-                    <a href="#categories" class="btn btn-primary">
+                    <button class="btn btn-primary" onclick="openProductsModal()">
                         <i class="fas fa-shopping-bag"></i> Смотреть каталог
-                    </a>
+                    </button>
                     <a href="#contacts" class="btn btn-outline">
                         <i class="fas fa-phone-alt"></i> Связаться с нами
                     </a>
@@ -1235,126 +1290,81 @@
         </div>
     </section>
 
-    <!-- КАТЕГОРИИ ТОВАРОВ -->
-    <section id="categories" class="section">
+    <!-- О КОМПАНИИ (НОВАЯ СЕКЦИЯ) -->
+    <section id="about" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>Категории товаров</h2>
-                <p>Выбирайте из нашего премиального ассортимента</p>
-            </div>
-            
-            <div class="categories-grid">
-                <!-- СМАРТФОНЫ -->
-                <div class="category-card" onclick="openCategory('smartphones')">
-                    <div class="category-image">
-                        <div class="category-icon">📱</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Смартфоны</h3>
-                        <p class="category-description">Флагманские модели с лучшими камерами и производительностью</p>
-                        <div class="category-products">
-                            <span class="product-tag">iPhone 15 Pro</span>
-                            <span class="product-tag">Samsung S24</span>
-                            <span class="product-tag">Xiaomi 14</span>
+            <div class="about-company">
+                <div class="container">
+                    <div class="about-container">
+                        <div class="about-content">
+                            <h2>Мы — <span>TechStore</span><br>технологии с душой</h2>
+                            <p style="font-size: 20px; color: var(--gray); line-height: 1.6; margin-bottom: 32px;">
+                                Наш магазин родился не как очередная точка продаж, а как пространство, где каждая покупка — это начало отношений. Мы верим, что электроника должна не просто работать, а делать жизнь лучше, удобнее и интереснее.
+                            </p>
+                            
+                            <div class="about-features">
+                                <div class="feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>Подбор с заботой</h4>
+                                        <p>Лично тестируем каждый гаджет перед тем, как предложить его вам</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>Честная гарантия</h4>
+                                        <p>Не обещаем невозможного — гарантируем то, в чём уверены на 100%</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>Поддержка 24/7</h4>
+                                        <p>Основатель лично отвечает на вопросы в Telegram даже поздно вечером</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>Быстрая доставка</h4>
+                                        <p>Отправляем заказы в день оформления — ценим ваше время</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">100%</span>
+                                    <span class="stat-label">Качество товаров</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">24/7</span>
+                                    <span class="stat-label">Поддержка</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">0</span>
+                                    <span class="stat-label">Скрытых платежей</span>
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- ПЛАНШЕТЫ -->
-                <div class="category-card" onclick="openCategory('tablets')">
-                    <div class="category-image">
-                        <div class="category-icon">📱</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Планшеты</h3>
-                        <p class="category-description">Мощные планшеты для работы и творчества</p>
-                        <div class="category-products">
-                            <span class="product-tag">iPad Pro</span>
-                            <span class="product-tag">Samsung Tab S9</span>
-                            <span class="product-tag">Huawei MatePad</span>
+                        
+                        <div class="about-image">
+                            <div class="about-image-main">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- НОУТБУКИ -->
-                <div class="category-card" onclick="openCategory('laptops')">
-                    <div class="category-image">
-                        <div class="category-icon">💻</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Ноутбуки</h3>
-                        <p class="category-description">Производительные ноутбуки для любых задач</p>
-                        <div class="category-products">
-                            <span class="product-tag">MacBook Pro</span>
-                            <span class="product-tag">ASUS ROG</span>
-                            <span class="product-tag">Dell XPS</span>
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- ТЕЛЕВИЗОРЫ -->
-                <div class="category-card" onclick="openCategory('tv')">
-                    <div class="category-image">
-                        <div class="category-icon">📺</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Телевизоры</h3>
-                        <p class="category-description">4K и 8K телевизоры с умными функциями</p>
-                        <div class="category-products">
-                            <span class="product-tag">LG OLED</span>
-                            <span class="product-tag">Samsung QLED</span>
-                            <span class="product-tag">Sony Bravia</span>
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- НАУШНИКИ -->
-                <div class="category-card" onclick="openCategory('headphones')">
-                    <div class="category-image">
-                        <div class="category-icon">🎧</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Наушники</h3>
-                        <p class="category-description">Беспроводные наушники с шумоподавлением</p>
-                        <div class="category-products">
-                            <span class="product-tag">AirPods Pro</span>
-                            <span class="product-tag">Sony WH-1000</span>
-                            <span class="product-tag">Samsung Buds</span>
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- ЧАСЫ -->
-                <div class="category-card" onclick="openCategory('watches')">
-                    <div class="category-image">
-                        <div class="category-icon">⌚</div>
-                    </div>
-                    <div class="category-content">
-                        <h3 class="category-title">Умные часы</h3>
-                        <p class="category-description">Смарт-часы с отслеживанием здоровья</p>
-                        <div class="category-products">
-                            <span class="product-tag">Apple Watch</span>
-                            <span class="product-tag">Samsung Galaxy Watch</span>
-                            <span class="product-tag">Huawei Watch</span>
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-arrow-right"></i> Смотреть все
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1508,16 +1518,54 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ТОВАРОВ -->
+    <!-- МОДАЛКА ТОВАРОВ (ОТДЕЛЬНАЯ СТРАНИЦА) -->
     <div id="products-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="products-title">Товары</h3>
+                <h3 class="modal-title" id="products-title">Каталог товаров</h3>
                 <button class="modal-close" onclick="closeModal('products-modal')">&times;</button>
             </div>
             <div class="products-container">
+                <!-- КАТЕГОРИИ ТОВАРОВ В МОДАЛКЕ -->
+                <div class="categories-grid" style="margin-bottom: 40px;">
+                    <div class="category-card" onclick="openCategory('smartphones')">
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 60px; margin-bottom: 20px;">📱</div>
+                            <h3 style="font-size: 24px; margin-bottom: 12px;">Смартфоны</h3>
+                            <p style="color: var(--gray);">iPhone, Samsung, Xiaomi</p>
+                        </div>
+                    </div>
+                    
+                    <div class="category-card" onclick="openCategory('tablets')">
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 60px; margin-bottom: 20px;">📱</div>
+                            <h3 style="font-size: 24px; margin-bottom: 12px;">Планшеты</h3>
+                            <p style="color: var(--gray);">iPad, Galaxy Tab, Huawei</p>
+                        </div>
+                    </div>
+                    
+                    <div class="category-card" onclick="openCategory('laptops')">
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 60px; margin-bottom: 20px;">💻</div>
+                            <h3 style="font-size: 24px; margin-bottom: 12px;">Ноутбуки</h3>
+                            <p style="color: var(--gray);">MacBook, ASUS, Dell</p>
+                        </div>
+                    </div>
+                    
+                    <div class="category-card" onclick="openCategory('tv')">
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 60px; margin-bottom: 20px;">📺</div>
+                            <h3 style="font-size: 24px; margin-bottom: 12px;">Телевизоры</h3>
+                            <p style="color: var(--gray);">LG, Samsung, Sony</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ТОВАРЫ БУДУТ ОТОБРАЖАТЬСЯ ЗДЕСЬ -->
                 <div id="products-content">
-                    <!-- Товары будут добавлены через JS -->
+                    <p style="text-align: center; color: var(--gray); padding: 60px 0;">
+                        Выберите категорию товаров для просмотра
+                    </p>
                 </div>
             </div>
         </div>
@@ -1766,6 +1814,18 @@
             showNotification('Вы вышли из аккаунта', 'success');
         }
 
+        // ===== ОТКРЫТИЕ КАТАЛОГА ТОВАРОВ =====
+        function openProductsModal() {
+            // Сбрасываем содержимое при открытии каталога
+            document.getElementById('products-content').innerHTML = `
+                <p style="text-align: center; color: var(--gray); padding: 60px 0;">
+                    Выберите категорию товаров для просмотра
+                </p>
+            `;
+            document.getElementById('products-title').textContent = 'Каталог товаров';
+            openModal('products-modal');
+        }
+
         // ===== КАТЕГОРИИ И ТОВАРЫ =====
         function openCategory(categoryId) {
             const categoryTitles = {
@@ -1806,7 +1866,6 @@
             }
             
             document.getElementById('products-content').innerHTML = productsHTML;
-            openModal('products-modal');
         }
 
         // ===== КОРЗИНА =====
@@ -1866,7 +1925,7 @@
                         </div>
                         <h3>Корзина пуста</h3>
                         <p>Добавьте товары из каталога, чтобы сделать заказ</p>
-                        <button class="btn btn-primary" onclick="closeModal('cart-modal')">
+                        <button class="btn btn-primary" onclick="closeModal('cart-modal'); openProductsModal();">
                             <i class="fas fa-shopping-bag"></i> Перейти к товарам
                         </button>
                     </div>
