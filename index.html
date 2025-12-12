@@ -6,16 +6,28 @@
     <title>TechStore | Интернет-магазин электроники</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* БАЗОВЫЕ СТИЛИ */
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         :root {
             --primary: #4f46e5;
             --primary-dark: #4338ca;
+            --primary-light: #818cf8;
             --secondary: #ec4899;
+            --secondary-dark: #db2777;
             --accent: #f59e0b;
+            --accent-dark: #d97706;
             --dark: #1f2937;
             --light: #f8fafc;
+            --light-dark: #f1f5f9;
             --success: #10b981;
             --danger: #ef4444;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
         }
 
         * {
@@ -23,6 +35,10 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -37,55 +53,18 @@
             padding: 0 20px;
         }
 
-        .section {
-            padding: 80px 0;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title {
-            text-align: center;
-        }
-
-        .section-title h2:after {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* НАВИГАЦИЯ */
+        /* ===== НАВИГАЦИЯ ===== */
         .navbar {
-            background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
             padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .nav-container {
@@ -96,53 +75,105 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo i {
             color: var(--secondary);
+            font-size: 2rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--gray-700);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary);
         }
 
-        /* КНОПКИ */
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== КНОПКИ ===== */
         .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 2.5rem;
             font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
         }
 
         .btn-outline {
@@ -156,142 +187,244 @@
             color: white;
         }
 
-        /* ГЛАВНЫЙ БАННЕР */
-        .hero {
-            margin-top: 80px;
+        .btn-full {
+            width: 100%;
+        }
+
+        /* ===== СЕКЦИИ ===== */
+        .section {
             padding: 100px 0;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-            border-radius: 0 0 40px 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== ГЛАВНЫЙ БАННЕР ===== */
+        #hero {
+            background: linear-gradient(135deg, 
+                rgba(79, 70, 229, 0.08) 0%, 
+                rgba(236, 72, 153, 0.08) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, 
+                rgba(79, 70, 229, 0.15) 0%, 
+                transparent 70%);
+            border-radius: 50%;
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, 
+                rgba(236, 72, 153, 0.1) 0%, 
+                transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
         }
 
         .hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .hero-subtitle {
+        .hero-content h1 {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
             font-size: 1.3rem;
-            color: var(--dark);
-            opacity: 0.8;
-            margin-bottom: 2rem;
-        }
-
-        /* КАТЕГОРИИ ТОВАРОВ */
-        .categories {
+            color: var(--gray-600);
             margin-bottom: 3rem;
+            line-height: 1.6;
         }
 
-        .category-tabs {
+        .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
+            margin-top: 3rem;
         }
 
-        .category-btn {
-            padding: 12px 24px;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            color: var(--primary);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .category-btn.active,
-        .category-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .category-content {
-            display: none;
-        }
-
-        .category-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* КАРТОЧКИ ТОВАРОВ */
-        .products-grid {
+        /* ===== КАТЕГОРИИ ТОВАРОВ ===== */
+        .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .product-card {
+        .category-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
-            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            position: relative;
+            border: 1px solid var(--gray-200);
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        .category-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .category-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+            text-align: center;
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-description {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+
+        .category-products {
+            padding: 2rem;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .product-item:hover {
+            background: var(--gray-200);
+            transform: translateX(5px);
         }
 
         .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-
-        .product-image img {
-            max-width: 100%;
-            max-height: 160px;
-            object-fit: contain;
+            font-size: 1.8rem;
+            color: var(--primary);
+            border: 1px solid var(--gray-300);
         }
 
         .product-info {
-            padding: 1.5rem;
+            flex: 1;
         }
 
-        .product-category {
-            color: var(--secondary);
-            font-size: 0.9rem;
+        .product-name {
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .product-description {
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 1rem;
-            height: 60px;
-            overflow: hidden;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
         }
 
         .product-price {
             color: var(--primary);
-            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
-        /* БЛОК "О КОМПАНИИ" */
+        .category-link {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0 0 20px 20px;
+            transition: background 0.3s;
+        }
+
+        .category-link:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        /* ===== О КОМПАНИИ ===== */
+        #about {
+            background: linear-gradient(135deg, 
+                rgba(245, 158, 11, 0.05) 0%, 
+                rgba(236, 72, 153, 0.05) 100%);
+        }
+
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -299,48 +432,145 @@
             align-items: center;
         }
 
-        .about-text p {
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--gray-800);
             margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
             font-size: 1.1rem;
-            color: #4b5563;
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
         }
 
         .about-image {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            color: white;
-            text-align: center;
+            position: relative;
         }
 
-        /* ПРЕИМУЩЕСТВА */
+        .image-placeholder {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+            transform: perspective(1000px) rotateY(-5deg);
+        }
+
+        .image-placeholder i {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* ===== ПРЕИМУЩЕСТВА ===== */
+        #benefits {
+            background: linear-gradient(135deg, 
+                rgba(79, 70, 229, 0.05) 0%, 
+                rgba(16, 185, 129, 0.05) 100%);
+        }
+
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
         }
 
         .benefit-card {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 3rem 2rem;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
         }
 
         .benefit-icon {
             font-size: 3rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             color: var(--primary);
+            background: linear-gradient(135deg, 
+                rgba(79, 70, 229, 0.1), 
+                rgba(236, 72, 153, 0.1));
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
         }
 
-        /* КОНТАКТЫ */
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* ===== КОНТАКТЫ ===== */
+        #contact {
+            background: linear-gradient(135deg, 
+                rgba(16, 185, 129, 0.05) 0%, 
+                rgba(79, 70, 229, 0.05) 100%);
+        }
+
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -348,44 +578,85 @@
         }
 
         .contact-info {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--gray-900), var(--dark));
             padding: 3rem;
             border-radius: 20px;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: white;
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
         }
 
-        .telegram-username {
+        .contact-details h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-details p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .telegram-badge {
+            display: inline-block;
             background: #0088cc;
+            color: white;
             padding: 0.5rem 1rem;
             border-radius: 25px;
-            display: inline-block;
-            margin-top: 0.5rem;
             font-weight: 600;
+            margin-top: 0.5rem;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .telegram-badge:hover {
+            background: #006699;
         }
 
         .contact-form {
             background: white;
             padding: 3rem;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form h3 {
+            font-size: 2rem;
+            color: var(--gray-800);
+            margin-bottom: 2rem;
         }
 
         .form-group {
@@ -395,48 +666,70 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            color: var(--gray-700);
+            font-weight: 600;
         }
 
-        .form-group input,
-        .form-group textarea {
+        .form-control {
             width: 100%;
             padding: 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
             font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--gray-100);
         }
 
-        /* ФУТЕР */
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* ===== ФУТЕР ===== */
         footer {
-            background: var(--dark);
+            background: linear-gradient(135deg, var(--gray-900), var(--dark));
             color: white;
             padding: 4rem 0 2rem;
-            margin-top: 4rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-col h4 {
+            color: var(--accent);
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
-            display: block;
-            color: #d1d5db;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            margin-bottom: 0.8rem;
             transition: color 0.3s;
         }
 
         .footer-links a:hover {
             color: white;
+            padding-left: 5px;
         }
 
         .social-links {
@@ -445,9 +738,9 @@
             margin-top: 1.5rem;
         }
 
-        .social-links a {
-            width: 40px;
-            height: 40px;
+        .social-link {
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
@@ -455,36 +748,49 @@
             justify-content: center;
             color: white;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
-        .social-links a:hover {
+        .social-link:hover {
             background: var(--primary);
+            transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
-            margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid #374151;
-            color: #9ca3af;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
         }
 
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 3rem;
             }
             
-            h1 {
-                font-size: 2.5rem;
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
             
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .about-content,
             .contact-container {
                 grid-template-columns: 1fr;
             }
@@ -492,44 +798,134 @@
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
         }
 
-        @media (max-width: 480px) {
-            .footer-content {
-                grid-template-columns: 1fr;
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 0;
             }
             
-            .products-grid {
-                grid-template-columns: 1fr;
+            .nav-links {
+                display: none;
             }
             
-            .category-tabs {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .category-btn {
-                width: 200px;
-                text-align: center;
+            .section-title h2 {
+                font-size: 2.5rem;
             }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+
+        /* ===== ПРОГРЕСС БАР ПРОКРУТКИ ===== */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* ===== КНОПКА НАВЕРХ ===== */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
         }
     </style>
 </head>
 <body>
+    <!-- ПРОГРЕСС БАР ПРОКРУТКИ -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- КНОПКА НАВЕРХ -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <!-- НАВИГАЦИЯ -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-container">
-                <a href="#home" class="logo">
+                <a href="#hero" class="logo">
                     <i class="fas fa-laptop-code"></i> TechStore
                 </a>
                 
                 <div class="nav-links">
-                    <a href="#home">Главная</a>
+                    <a href="#hero">Главная</a>
                     <a href="#products">Товары</a>
                     <a href="#about">О компании</a>
                     <a href="#benefits">Преимущества</a>
@@ -540,12 +936,20 @@
     </nav>
 
     <!-- ГЛАВНЫЙ БАННЕР -->
-    <section id="home" class="section hero">
+    <section id="hero" class="section">
         <div class="container">
-            <div class="hero-content">
-                <h1>TechStore — технологии будущего уже сегодня</h1>
-                <p class="hero-subtitle">Мы только начали свой путь, но уже предлагаем лучшую электронику по честным ценам. Качество, надёжность и индивидуальный подход — наш главный принцип.</p>
-                <a href="#products" class="btn">Смотреть каталог</a>
+            <div class="hero-content animate-fadeIn">
+                <h1>TechStore — технологии для жизни</h1>
+                <p>Мы только начали, но уже знаем, как сделать покупку электроники простой и приятной. Никаких громких обещаний — только честный подход и качественные товары.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">
+                        <i class="fas fa-shopping-bag"></i> Смотреть товары
+                    </a>
+                    <a href="#about" class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i> О компании
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -553,171 +957,141 @@
     <!-- ТОВАРЫ С КАТЕГОРИЯМИ -->
     <section id="products" class="section">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title animate-fadeIn">
                 <h2>Наши товары</h2>
-                <p>Выбирайте из широкого ассортимента современной электроники</p>
+                <p>Структурированный каталог по категориям с реальными моделями</p>
             </div>
             
             <div class="categories">
-                <div class="category-tabs">
-                    <button class="category-btn active" data-category="smartphones">Смартфоны</button>
-                    <button class="category-btn" data-category="tv">Телевизоры</button>
-                    <button class="category-btn" data-category="laptops">Ноутбуки</button>
-                </div>
-                
-                <!-- СМАРТФОНЫ -->
-                <div id="smartphones" class="category-content active">
-                    <div class="products-grid">
-                        <!-- iPhone 15 Pro -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/IPhone_15_Pro_Black_Titanium.png/320px-IPhone_15_Pro_Black_Titanium.png" alt="iPhone 15 Pro">
+                <!-- КАТЕГОРИЯ 1: СМАРТФОНЫ -->
+                <div class="category-card animate-fadeIn">
+                    <div class="category-header">
+                        <div class="category-icon">📱</div>
+                        <h3 class="category-title">Смартфоны</h3>
+                        <p class="category-description">Флагманы и сбалансированные модели</p>
+                    </div>
+                    
+                    <div class="category-products">
+                        <div class="product-list">
+                            <div class="product-item">
+                                <div class="product-image">🍎</div>
+                                <div class="product-info">
+                                    <div class="product-name">iPhone 15 Pro</div>
+                                    <div class="product-price">109 990 ₽</div>
+                                </div>
                             </div>
-                            <div class="product-info">
-                                <div class="product-category">Смартфоны</div>
-                                <h3 class="product-title">Apple iPhone 15 Pro</h3>
-                                <p class="product-description">Титановый корпус, процессор A17 Pro, камера 48 МП</p>
-                                <div class="product-price">109 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">📱</div>
+                                <div class="product-info">
+                                    <div class="product-name">Samsung Galaxy S24</div>
+                                    <div class="product-price">89 990 ₽</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Samsung Galaxy S24 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Samsung_Galaxy_S24.png/320px-Samsung_Galaxy_S24.png" alt="Samsung Galaxy S24">
+                            
+                            <div class="product-item">
+                                <div class="product-image">📱</div>
+                                <div class="product-info">
+                                    <div class="product-name">Xiaomi 14 Pro</div>
+                                    <div class="product-price">79 990 ₽</div>
+                                </div>
                             </div>
-                            <div class="product-info">
-                                <div class="product-category">Смартфоны</div>
-                                <h3 class="product-title">Samsung Galaxy S24</h3>
-                                <p class="product-description">Экран Dynamic AMOLED 2X, чипсет Snapdragon 8 Gen 3</p>
-                                <div class="product-price">89 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Xiaomi 14 Pro -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Xiaomi_14_Pro.png/320px-Xiaomi_14_Pro.png" alt="Xiaomi 14 Pro">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Смартфоны</div>
-                                <h3 class="product-title">Xiaomi 14 Pro</h3>
-                                <p class="product-description">Камера Leica, процессор Snapdragon 8 Gen 3, 120 Гц</p>
-                                <div class="product-price">79 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Google Pixel 8 Pro -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Google_Pixel_8_Pro.png/320px-Google_Pixel_8_Pro.png" alt="Google Pixel 8 Pro">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Смартфоны</div>
-                                <h3 class="product-title">Google Pixel 8 Pro</h3>
-                                <p class="product-description">Тензорный чип G3, лучшая камера по версии DxOMark</p>
-                                <div class="product-price">84 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">📱</div>
+                                <div class="product-info">
+                                    <div class="product-name">Google Pixel 8 Pro</div>
+                                    <div class="product-price">84 990 ₽</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <a href="#smartphones" class="category-link">
+                        Все смартфоны <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 
-                <!-- ТЕЛЕВИЗОРЫ -->
-                <div id="tv" class="category-content">
-                    <div class="products-grid">
-                        <!-- LG OLED C3 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/LG_OLED_C3.png/320px-LG_OLED_C3.png" alt="LG OLED C3">
+                <!-- КАТЕГОРИЯ 2: ТЕЛЕВИЗОРЫ -->
+                <div class="category-card animate-fadeIn">
+                    <div class="category-header">
+                        <div class="category-icon">📺</div>
+                        <h3 class="category-title">Телевизоры</h3>
+                        <p class="category-description">OLED, QLED и Smart TV</p>
+                    </div>
+                    
+                    <div class="category-products">
+                        <div class="product-list">
+                            <div class="product-item">
+                                <div class="product-image">📺</div>
+                                <div class="product-info">
+                                    <div class="product-name">LG OLED C3 55"</div>
+                                    <div class="product-price">129 990 ₽</div>
+                                </div>
                             </div>
-                            <div class="product-info">
-                                <div class="product-category">Телевизоры</div>
-                                <h3 class="product-title">LG OLED C3 55"</h3>
-                                <p class="product-description">4K OLED, процессор α9 Gen6, Dolby Vision IQ</p>
-                                <div class="product-price">129 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">📺</div>
+                                <div class="product-info">
+                                    <div class="product-name">Samsung QLED Q80C 65"</div>
+                                    <div class="product-price">149 990 ₽</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Samsung QLED Q80C -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Samsung_QLED_Q80C.png/320px-Samsung_QLED_Q80C.png" alt="Samsung QLED Q80C">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Телевизоры</div>
-                                <h3 class="product-title">Samsung QLED Q80C 65"</h3>
-                                <p class="product-description">4K QLED, объектно-ориентированный звук</p>
-                                <div class="product-price">149 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Sony Bravia XR A80L -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Sony_Bravia_XR_A80L.png/320px-Sony_Bravia_XR_A80L.png" alt="Sony Bravia XR A80L">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Телевизоры</div>
-                                <h3 class="product-title">Sony Bravia XR A80L 55"</h3>
-                                <p class="product-description">4K OLED, процессор Cognitive XR, Acoustic Surface</p>
-                                <div class="product-price">139 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">📺</div>
+                                <div class="product-info">
+                                    <div class="product-name">Sony Bravia XR A80L 55"</div>
+                                    <div class="product-price">139 990 ₽</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <a href="#tv" class="category-link">
+                        Все телевизоры <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 
-                <!-- НОУТБУКИ -->
-                <div id="laptops" class="category-content">
-                    <div class="products-grid">
-                        <!-- MacBook Pro 16 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/MacBook_Pro_16.png/320px-MacBook_Pro_16.png" alt="MacBook Pro 16">
+                <!-- КАТЕГОРИЯ 3: НОУТБУКИ -->
+                <div class="category-card animate-fadeIn">
+                    <div class="category-header">
+                        <div class="category-icon">💻</div>
+                        <h3 class="category-title">Ноутбуки</h3>
+                        <p class="category-description">Для работы, игр и творчества</p>
+                    </div>
+                    
+                    <div class="category-products">
+                        <div class="product-list">
+                            <div class="product-item">
+                                <div class="product-image">💻</div>
+                                <div class="product-info">
+                                    <div class="product-name">MacBook Pro 16" M3</div>
+                                    <div class="product-price">289 990 ₽</div>
+                                </div>
                             </div>
-                            <div class="product-info">
-                                <div class="product-category">Ноутбуки</div>
-                                <h3 class="product-title">MacBook Pro 16" M3 Pro</h3>
-                                <p class="product-description">Чип Apple M3 Pro, Liquid Retina XDR, 18 ГБ ОЗУ</p>
-                                <div class="product-price">289 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">💻</div>
+                                <div class="product-info">
+                                    <div class="product-name">ASUS ROG Zephyrus G14</div>
+                                    <div class="product-price">149 990 ₽</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- ASUS ROG Zephyrus G14 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/ASUS_ROG_Zephyrus_G14.png/320px-ASUS_ROG_Zephyrus_G14.png" alt="ASUS ROG Zephyrus G14">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Ноутбуки</div>
-                                <h3 class="product-title">ASUS ROG Zephyrus G14</h3>
-                                <p class="product-description">Ryzen 9, RTX 4060, экран 14" 144 Гц, 16 ГБ ОЗУ</p>
-                                <div class="product-price">149 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Dell XPS 13 -->
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Dell_XPS_13.png/320px-Dell_XPS_13.png" alt="Dell XPS 13">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-category">Ноутбуки</div>
-                                <h3 class="product-title">Dell XPS 13 Plus</h3>
-                                <p class="product-description">Intel Core i7, 16 ГБ ОЗУ, 4K дисплей, 1 ТБ SSD</p>
-                                <div class="product-price">169 990 ₽</div>
-                                <button class="btn btn-outline add-to-cart">В корзину</button>
+                            
+                            <div class="product-item">
+                                <div class="product-image">💻</div>
+                                <div class="product-info">
+                                    <div class="product-name">Dell XPS 13 Plus</div>
+                                    <div class="product-price">169 990 ₽</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <a href="#laptops" class="category-link">
+                        Все ноутбуки <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -726,65 +1100,112 @@
     <!-- О КОМПАНИИ -->
     <section id="about" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>О компании TechStore</h2>
+            <div class="section-title animate-fadeIn">
+                <h2>О компании</h2>
+                <p>Правдивая история нового, но амбициозного проекта</p>
             </div>
             
             <div class="about-content">
-                <div class="about-text">
-                    <p><strong>TechStore</strong> — это новый проект на рынке электроники, созданный с нуля в 2024 году. Мы верим, что современные технологии должны быть доступны каждому, а покупка электроники — простым и приятным процессом.</p>
-                    <p>В отличие от крупных сетей, мы не обещаем тысяч продаж или миллионных оборотов. Наша цель скромнее, но важнее — создать место, где каждый покупатель получит честную консультацию, качественный товар и поддержку после покупки.</p>
-                    <p>Мы тщательно отбираем каждый товар в нашем каталоге, ориентируясь на оптимальное соотношение цены и качества. Вы не найдёте у нас устаревших моделей или товаров с сомнительной репутацией.</p>
-                    <p>TechStore — это не просто магазин. Это начинание энтузиастов, которые сами разбираются в технологиях и хотят делиться этим с вами.</p>
+                <div class="about-text animate-fadeIn">
+                    <h3>Мы только начали, но уже знаем, что делаем</h3>
+                    <p><strong>TechStore</strong> родился в 2024 году не как очередной магазин электроники, а как ответ на запрос о честности и прозрачности в этой сфере.</p>
+                    <p>Мы не будем рассказывать сказки о тысячах продаж или миллионных оборотах — мы только открылись. Но мы твёрдо уверены, что можно построить успешный бизнес на трёх принципах:</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Честность</h4>
+                                <p>Никаких скрытых платежей и уловок</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Качество</h4>
+                                <p>Только проверенные бренды и модели</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-headset"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Поддержка</h4>
+                                <p>Помогаем до, во время и после покупки</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Скорость</h4>
+                                <p>Быстрая доставка и решение вопросов</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>Наш основатель, <strong>Даниил</strong>, сам разбирается в технике и понимает, что нужно покупателям. Он лично отвечает за каждый заказ и готов помочь с выбором.</p>
                 </div>
-                <div class="about-image">
-                    <i class="fas fa-lightbulb" style="font-size: 5rem; margin-bottom: 2rem;"></i>
-                    <h3 style="color: white; margin-bottom: 1rem;">Наша философия</h3>
-                    <p style="color: rgba(255, 255, 255, 0.9);">Честность перед клиентом, качество перед количеством, долгосрочные отношения перед разовой продажей.</p>
+                
+                <div class="about-image animate-fadeIn">
+                    <div class="image-placeholder">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3 style="color: white; margin-bottom: 1rem;">Наша философия</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9);">Лучше начать с малого и сделать всё правильно, чем гнаться за цифрами в ущерб качеству.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ПРЕИМУЩЕСТВА -->
-    <section id="benefits" class="section" style="background-color: #f1f5f9;">
+    <section id="benefits" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>Почему выбирают TechStore</h2>
-                <p>Мы только начали, но уже делаем всё для вашего комфорта</p>
+            <div class="section-title animate-fadeIn">
+                <h2>Почему TechStore</h2>
+                <p>Конкретные преимущества нового магазина</p>
             </div>
             
             <div class="benefits-grid">
-                <div class="benefit-card">
+                <div class="benefit-card animate-fadeIn">
                     <div class="benefit-icon">
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <h3>Быстрая доставка</h3>
-                    <p>Доставляем заказы по Москве за 1-2 дня, по России — до 5 дней. Отслеживание заказа доступно в личном кабинете.</p>
+                    <p>Москва — 1-2 дня, регионы — до 5 дней. Отслеживание заказа в реальном времени.</p>
                 </div>
                 
-                <div class="benefit-card">
+                <div class="benefit-card animate-fadeIn">
                     <div class="benefit-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Гарантия качества</h3>
-                    <p>Все товары поставляются с официальной гарантией производителя. Мы проверяем технику перед отправкой.</p>
+                    <h3>Официальная гарантия</h3>
+                    <p>Все товары с российской гарантией. Помогаем с оформлением ремонта при необходимости.</p>
                 </div>
                 
-                <div class="benefit-card">
+                <div class="benefit-card animate-fadeIn">
                     <div class="benefit-icon">
-                        <i class="fas fa-headset"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <h3>Поддержка 24/7</h3>
-                    <p>Наша команда всегда на связи в Telegram. Поможем с выбором, настройкой и решением любых вопросов.</p>
+                    <h3>Консультации от эксперта</h3>
+                    <p>Основатель сам консультирует по выбору техники в Telegram. Никаких менеджеров-новичков.</p>
                 </div>
                 
-                <div class="benefit-card">
+                <div class="benefit-card animate-fadeIn">
                     <div class="benefit-icon">
-                        <i class="fas fa-handshake"></i>
+                        <i class="fas fa-sync-alt"></i>
                     </div>
-                    <h3>Индивидуальный подход</h3>
-                    <p>Мы не крупная сеть, поэтому можем уделить время каждому клиенту. Подберём технику именно под ваши задачи.</p>
+                    <h3>Простой возврат</h3>
+                    <p>Если товар не подошёл — вернём деньги в течение 14 дней без лишних вопросов.</p>
                 </div>
             </div>
         </div>
@@ -793,23 +1214,23 @@
     <!-- КОНТАКТЫ -->
     <section id="contact" class="section">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title animate-fadeIn">
                 <h2>Контакты</h2>
-                <p>Свяжитесь с нами любым удобным способом</p>
+                <p>Свяжитесь с нами удобным способом</p>
             </div>
             
             <div class="contact-container">
-                <div class="contact-info">
-                    <h3 style="color: white; margin-bottom: 2rem;">Свяжитесь с нами</h3>
+                <div class="contact-info animate-fadeIn">
+                    <h3>Наши контакты</h3>
                     
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div>
-                            <h4>Основатель</h4>
-                            <p><strong>Даниил</strong></p>
-                            <p>Отвечает за развитие магазина и клиентский сервис</p>
+                        <div class="contact-details">
+                            <h4>Основатель и CEO</h4>
+                            <p><strong>Даниил Александрович</strong></p>
+                            <p>Лично отвечает за всё, что происходит в магазине</p>
                         </div>
                     </div>
                     
@@ -817,10 +1238,12 @@
                         <div class="contact-icon">
                             <i class="fab fa-telegram"></i>
                         </div>
-                        <div>
+                        <div class="contact-details">
                             <h4>Telegram</h4>
-                            <p>Основной канал связи для быстрых консультаций и поддержки</p>
-                            <div class="telegram-username">@dtwo1</div>
+                            <p>Основной канал связи для быстрых консультаций</p>
+                            <a href="https://t.me/daab17" target="_blank" class="telegram-badge">
+                                <i class="fab fa-telegram"></i> @daab17
+                            </a>
                         </div>
                     </div>
                     
@@ -828,7 +1251,7 @@
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
-                        <div>
+                        <div class="contact-details">
                             <h4>Email</h4>
                             <p>Для официальных запросов и документации</p>
                             <p><strong>hello@techstore.ru</strong></p>
@@ -836,25 +1259,27 @@
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h3 style="margin-bottom: 2rem; color: var(--dark);">Отправить сообщение</h3>
+                <div class="contact-form animate-fadeIn">
+                    <h3>Отправить сообщение</h3>
                     <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Ваше имя</label>
-                            <input type="text" id="name" required>
+                            <input type="text" id="name" class="form-control" placeholder="Как к вам обращаться?" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" class="form-control" placeholder="email@example.com" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="message">Сообщение</label>
-                            <textarea id="message" rows="5" required placeholder="Опишите ваш вопрос или предложение..."></textarea>
+                            <textarea id="message" class="form-control" placeholder="Что вас интересует?" required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn" style="width: 100%;">Отправить сообщение</button>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i> Отправить сообщение
+                        </button>
                     </form>
                 </div>
             </div>
@@ -867,87 +1292,108 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h4>TechStore</h4>
-                    <p>Новый магазин электроники с честным подходом. Качество, надёжность и индивидуальный сервис.</p>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">Новый магазин электроники с честным подходом. Качество, надёжность и индивидуальный сервис.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/dtwo1" class="social-link" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Категории</h4>
-                    <div class="footer-links">
-                        <a href="#products">Смартфоны</a>
-                        <a href="#products">Телевизоры</a>
-                        <a href="#products">Ноутбуки</a>
-                        <a href="#products">Наушники</a>
-                        <a href="#products">Аксессуары</a>
-                    </div>
+                    <ul class="footer-links">
+                        <li><a href="#products">Смартфоны</a></li>
+                        <li><a href="#products">Телевизоры</a></li>
+                        <li><a href="#products">Ноутбуки</a></li>
+                        <li><a href="#products">Планшеты</a></li>
+                        <li><a href="#products">Наушники</a></li>
+                    </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h4>Помощь</h4>
-                    <div class="footer-links">
-                        <a href="#">Доставка и оплата</a>
-                        <a href="#">Гарантия</a>
-                        <a href="#">Возврат</a>
-                        <a href="#">FAQ</a>
-                        <a href="#contact">Контакты</a>
-                    </div>
+                    <h4>Информация</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Контакты</h4>
-                    <div class="footer-links">
-                        <p><i class="fas fa-user" style="margin-right: 10px;"></i> Даниил Александрович</p>
-                        <p><i class="fab fa-telegram" style="margin-right: 10px;"></i> @daab17</p>
-                        <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> hello@techstore.ru</p>
-                    </div>
+                    <ul class="footer-links">
+                        <li><a href="https://t.me/dtwo1" target="_blank"><i class="fab fa-telegram"></i> @dtwo1</a></li>
+                        <li><a href="mailto:hello@techstore.ru"><i class="fas fa-envelope"></i> hello@techstore.ru</a></li>
+                    </ul>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 1rem; font-size: 0.9rem;">
+                        <i class="fas fa-user"></i> Даниил Александрович, основатель TechStore
+                    </p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 TechStore. Все права защищены.</p>
-                <p>Сайт создан и размещён на GitHub Pages | Мы только начали, но уже стремимся быть лучшими</p>
+                <p>&copy; 2025 TechStore. Мы только начинаем, но уже стремимся быть лучшими.</p>
+                <p style="margin-top: 0.5rem;">2025 TechStore.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // Переключение категорий товаров
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Убираем активный класс у всех кнопок
-                document.querySelectorAll('.category-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
-                
-                // Добавляем активный класс нажатой кнопке
-                btn.classList.add('active');
-                
-                // Скрываем все категории товаров
-                document.querySelectorAll('.category-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Показываем выбранную категорию
-                const categoryId = btn.getAttribute('data-category');
-                document.getElementById(categoryId).classList.add('active');
+        // ИНИЦИАЛИЗАЦИЯ
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обновляем год в футере
+            const year = new Date().getFullYear();
+            document.querySelector('.copyright p').innerHTML = 
+                document.querySelector('.copyright p').innerHTML.replace('2024', year);
+            
+            // Инициализируем анимации
+            initAnimations();
+        });
+        
+        // ПРОГРЕСС БАР ПРОКРУТКИ
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+            
+            // Показываем/скрываем кнопку "Наверх"
+            const scrollToTop = document.getElementById('scrollToTop');
+            if (window.scrollY > 500) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+        
+        // КНОПКА "НАВЕРХ"
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
         
-        // Плавная прокрутка по якорным ссылкам
+        // ПЛАВНАЯ ПРОКРУТКА ПО ЯКОРЯМ
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
-                if(targetElement) {
+                if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -956,43 +1402,20 @@
             });
         });
         
-        // Добавление товара в корзину
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
-                
-                // Анимация кнопки
-                this.textContent = 'Добавлено!';
-                this.style.background = '#10b981';
-                this.style.color = 'white';
-                this.style.borderColor = '#10b981';
-                
-                // Восстанавливаем кнопку через 2 секунды
-                setTimeout(() => {
-                    this.textContent = 'В корзину';
-                    this.style.background = '';
-                    this.style.color = '';
-                    this.style.borderColor = '';
-                }, 2000);
-                
-                // Показываем уведомление
-                showNotification(`${productTitle} добавлен в корзину`, 'success');
-            });
-        });
-        
-        // Обработка формы обратной связи
+        // ФОРМА ОБРАТНОЙ СВЯЗИ
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // В реальном проекте здесь был бы AJAX запрос
             const name = document.getElementById('name').value;
-            showNotification(`Спасибо, ${name}! Ваше сообщение отправлено. Мы ответим в течение 24 часов.`, 'success');
+            
+            // Показываем уведомление
+            showNotification(`Спасибо, ${name}! Ваше сообщение отправлено. Я свяжусь с вами в течение дня.`, 'success');
             
             // Очищаем форму
             this.reset();
         });
         
-        // Функция показа уведомлений
+        // ФУНКЦИЯ ПОКАЗА УВЕДОМЛЕНИЙ
         function showNotification(message, type = 'success') {
             // Создаём элемент уведомления
             const notification = document.createElement('div');
@@ -1002,26 +1425,72 @@
                 right: 20px;
                 background: ${type === 'success' ? '#10b981' : '#ef4444'};
                 color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                z-index: 3000;
+                padding: 1.25rem 1.75rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 2000;
                 animation: slideIn 0.3s ease;
+                max-width: 400px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
             `;
             
-            notification.textContent = message;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
             document.body.appendChild(notification);
             
-            // Удаляем уведомление через 3 секунды
+            // Удаляем уведомление через 4 секунды
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => {
                     document.body.removeChild(notification);
                 }, 300);
-            }, 3000);
+            }, 4000);
         }
         
-        // Добавляем стили для анимации уведомлений
+        // АНИМАЦИИ ПРИ ПРОКРУТКЕ
+        function initAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeIn');
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за всеми анимируемыми элементами
+            document.querySelectorAll('.animate-fadeIn').forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // ДОБАВЛЕНИЕ В КОРЗИНУ
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const productName = this.querySelector('.product-name').textContent;
+                const productPrice = this.querySelector('.product-price').textContent;
+                
+                showNotification(`${productName} за ${productPrice} добавлен в корзину`, 'success');
+                
+                // Анимация клика
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+        
+        // ДОБАВЛЯЕМ СТИЛИ ДЛЯ АНИМАЦИЙ УВЕДОМЛЕНИЙ
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideIn {
@@ -1048,13 +1517,21 @@
         `;
         document.head.appendChild(style);
         
-        // Обновляем год в футере
-        document.addEventListener('DOMContentLoaded', function() {
-            const year = new Date().getFullYear();
-            const copyrightText = document.querySelector('.copyright p');
-            if(copyrightText) {
-                copyrightText.innerHTML = copyrightText.innerHTML.replace('2024', year);
+        // КОНТРОЛЬ ПРОКРУТКИ ДЛЯ НАВИГАЦИИ
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const navbar = document.querySelector('.navbar');
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                // Прокрутка вниз
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Прокрутка вверх или в начале
+                navbar.style.transform = 'translateY(0)';
             }
+            
+            lastScroll = currentScroll;
         });
     </script>
 </body>
