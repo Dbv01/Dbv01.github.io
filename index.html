@@ -2153,61 +2153,63 @@
         }
 
         function updateCartModal() {
-            const cartContent = document.getElementById('cart-content');
-            
-            if (cart.length === 0) {
-                cartContent.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <h3>Корзина пуста</h3>
-                        <p>Добавьте товары из каталога, чтобы сделать заказ</p>
-                        <button class="btn btn-primary" onclick="closeModal('cart-modal'); openProductsModal();">
-                            <i class="fas fa-shopping-bag"></i> Перейти к товарам
-                        </button>
+    const cartContent = document.getElementById('cart-content');
+    const cartSummary = document.querySelector('.cart-summary');
+    
+    if (cart.length === 0) {
+        cartContent.innerHTML = `
+            <div class="empty-cart">
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h3>Корзина пуста</h3>
+                <p>Добавьте товары из каталога, чтобы сделать заказ</p>
+                <button class="btn btn-primary" onclick="closeModal('cart-modal'); openProductsModal();">
+                    <i class="fas fa-shopping-bag"></i> Перейти к товарам
+                </button>
+            </div>
+        `;
+        cartSummary.style.display = 'none';
+        return;
+    }
+    
+    // ПОКАЗЫВАЕМ СУММУ И КНОПКУ, ЕСЛИ ЕСТЬ ТОВАРЫ
+    cartSummary.style.display = 'block';
+    
+    let cartHTML = '';
+    let subtotal = 0;
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        
+        cartHTML += `
+            <div class="cart-item">
+                <div class="cart-item-icon">
+                    ${getCategoryIcon(item.category)}
+                </div>
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
+                </div>
+                <div class="cart-item-controls">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+                        <span class="quantity-value">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                     </div>
-                `;
-                document.querySelector('.cart-summary').style.display = 'none';
-                return;
-            }
-            
-            document.querySelector('.cart-summary').style.display = 'block';
-            
-            let cartHTML = '';
-            let subtotal = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-                
-                cartHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-icon">
-                            ${getCategoryIcon(item.category)}
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <div class="quantity-control">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
-                                <span class="quantity-value">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                            <button class="btn-icon" onclick="removeFromCart(${item.id})" style="width: 44px; height: 44px;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            cartContent.innerHTML = cartHTML;
-            document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString() + ' ₽';
-            document.getElementById('cart-total').textContent = subtotal.toLocaleString() + ' ₽';
-        }
+                    <button class="btn-icon" onclick="removeFromCart(${item.id})" style="width: 44px; height: 44px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    cartContent.innerHTML = cartHTML;
+    document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString() + ' ₽';
+    document.getElementById('cart-total').textContent = subtotal.toLocaleString() + ' ₽';
+}
 
         function updateQuantity(itemId, change) {
             const item = cart.find(i => i.id === itemId);
