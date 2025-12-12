@@ -95,7 +95,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -129,7 +129,7 @@
             width: 100%;
         }
 
-        /* ===== КНОПКИ ===== */
+        /* КНОПКИ */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -143,26 +143,6 @@
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
         }
 
         .btn-primary {
@@ -191,7 +171,7 @@
             width: 100%;
         }
 
-        /* ===== СЕКЦИИ ===== */
+        /* СЕКЦИИ */
         .section {
             padding: 100px 0;
             min-height: 100vh;
@@ -233,7 +213,7 @@
             margin: 0 auto;
         }
 
-        /* ===== ГЛАВНЫЙ БАННЕР ===== */
+        /* ГЛАВНЫЙ БАННЕР */
         #hero {
             background: linear-gradient(135deg, 
                 rgba(79, 70, 229, 0.08) 0%, 
@@ -300,7 +280,7 @@
             margin-top: 3rem;
         }
 
-        /* ===== КАТЕГОРИИ ТОВАРОВ ===== */
+        /* КАТЕГОРИИ ТОВАРОВ */
         .categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -366,6 +346,7 @@
             background: var(--gray-100);
             border-radius: 12px;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .product-item:hover {
@@ -402,6 +383,15 @@
             font-size: 1.1rem;
         }
 
+        .add-to-cart-hint {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .category-link {
             display: block;
             text-align: center;
@@ -418,7 +408,7 @@
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         }
 
-        /* ===== О КОМПАНИИ ===== */
+        /* О КОМПАНИИ */
         #about {
             background: linear-gradient(135deg, 
                 rgba(245, 158, 11, 0.05) 0%, 
@@ -496,7 +486,7 @@
             opacity: 0.9;
         }
 
-        /* ===== ПРЕИМУЩЕСТВА ===== */
+        /* ПРЕИМУЩЕСТВА */
         #benefits {
             background: linear-gradient(135deg, 
                 rgba(79, 70, 229, 0.05) 0%, 
@@ -564,11 +554,10 @@
             line-height: 1.6;
         }
 
-        /* ===== КОНТАКТЫ ===== */
+        /* КОНТАКТЫ (ИСПРАВЛЕНО - ХОРОШО ВИДНО) */
         #contact {
-            background: linear-gradient(135deg, 
-                rgba(16, 185, 129, 0.05) 0%, 
-                rgba(79, 70, 229, 0.05) 100%);
+            background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+            color: white;
         }
 
         .contact-container {
@@ -578,11 +567,13 @@
         }
 
         .contact-info {
-            background: linear-gradient(135deg, var(--gray-900), var(--dark));
+            background: rgba(255, 255, 255, 0.1);
             padding: 3rem;
             border-radius: 20px;
             color: white;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .contact-info h3 {
@@ -597,7 +588,7 @@
             gap: 1.5rem;
             margin-bottom: 2rem;
             padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .contact-item:last-child {
@@ -609,7 +600,7 @@
         .contact-icon {
             width: 60px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -626,7 +617,7 @@
         }
 
         .contact-details p {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 0.5rem;
         }
 
@@ -644,13 +635,15 @@
 
         .telegram-badge:hover {
             background: #006699;
+            color: white;
         }
 
         .contact-form {
             background: white;
             padding: 3rem;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            color: var(--gray-800);
         }
 
         .contact-form h3 {
@@ -692,9 +685,461 @@
             resize: vertical;
         }
 
-        /* ===== ФУТЕР ===== */
+        /* ===== СТИЛИ АВТОРИЗАЦИИ И КОРЗИНЫ ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: #ff4444;
+            background: #f8f8f8;
+        }
+
+        /* Формы в модалках */
+        #auth-form {
+            margin-top: 1.5rem;
+        }
+
+        .auth-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .auth-form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .auth-form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .auth-switch a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        /* Раздел пользователя в навигации */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+            background: #f8f8f8;
+            border-radius: 50px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            padding: 0.6rem 1.2rem;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        /* Корзина в навигации */
+        .cart-link {
+            position: relative;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .cart-link:hover {
+            background: #f0f0f0;
+        }
+
+        .cart-count {
+            background: #ff4444;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        /* Страница корзины */
+        .cart-page {
+            display: none;
+        }
+
+        .cart-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .cart-items-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .cart-item-icon {
+            font-size: 3rem;
+            color: #4f46e5;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-category {
+            color: #7c3aed;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #4f46e5;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .quantity-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+            padding: 0.5rem;
+        }
+
+        .remove-item:hover {
+            color: #ff4444;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .summary-total {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #4f46e5;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            max-width: 400px;
+            border-left: 5px solid;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.active {
+            display: flex;
+        }
+
+        .notification.success {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+        }
+
+        .notification.error {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification.success .notification-icon {
+            color: #10b981;
+        }
+
+        .notification.error .notification-icon {
+            color: #ef4444;
+        }
+
+        .notification-text {
+            flex: 1;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* ФУТЕР (ИСПРАВЛЕНО - ХОРОШО ВИДНО) */
         footer {
-            background: linear-gradient(135deg, var(--gray-900), var(--dark));
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
             color: white;
             padding: 4rem 0 2rem;
         }
@@ -722,7 +1167,7 @@
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -760,11 +1205,11 @@
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
 
-        /* ===== АНИМАЦИИ ===== */
+        /* АНИМАЦИИ */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -780,7 +1225,57 @@
             animation: fadeIn 0.8s ease-out;
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
+        /* ПРОГРЕСС БАР ПРОКРУТКИ */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* КНОПКА НАВЕРХ */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        /* АДАПТИВНОСТЬ */
         @media (max-width: 1024px) {
             .hero-content h1 {
                 font-size: 3rem;
@@ -797,6 +1292,20 @@
             
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .cart-item-image {
+                margin-right: 0;
+            }
+            
+            .cart-item-controls {
+                justify-content: center;
             }
         }
 
@@ -833,6 +1342,21 @@
             .benefits-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .user-info {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .logout-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -852,56 +1376,20 @@
             .contact-form {
                 padding: 2rem;
             }
-        }
-
-        /* ===== ПРОГРЕСС БАР ПРОКРУТКИ ===== */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: transparent;
-            z-index: 1001;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        /* ===== КНОПКА НАВЕРХ ===== */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 999;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-        }
-
-        .scroll-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
         }
     </style>
 </head>
@@ -927,9 +1415,13 @@
                 <div class="nav-links">
                     <a href="#hero">Главная</a>
                     <a href="#products">Товары</a>
+                    <a href="#cart-page" onclick="showPage('cart-page')">Корзина</a>
                     <a href="#about">О компании</a>
                     <a href="#benefits">Преимущества</a>
                     <a href="#contact">Контакты</a>
+                    <div id="user-section">
+                        <!-- Сюда вставится авторизация -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -973,41 +1465,53 @@
                     
                     <div class="category-products">
                         <div class="product-list">
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('iPhone 15 Pro', 109990, 'Смартфоны')">
                                 <div class="product-image">🍎</div>
                                 <div class="product-info">
                                     <div class="product-name">iPhone 15 Pro</div>
                                     <div class="product-price">109 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Samsung Galaxy S24', 89990, 'Смартфоны')">
                                 <div class="product-image">📱</div>
                                 <div class="product-info">
                                     <div class="product-name">Samsung Galaxy S24</div>
                                     <div class="product-price">89 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Xiaomi 14 Pro', 79990, 'Смартфоны')">
                                 <div class="product-image">📱</div>
                                 <div class="product-info">
                                     <div class="product-name">Xiaomi 14 Pro</div>
                                     <div class="product-price">79 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Google Pixel 8 Pro', 84990, 'Смартфоны')">
                                 <div class="product-image">📱</div>
                                 <div class="product-info">
                                     <div class="product-name">Google Pixel 8 Pro</div>
                                     <div class="product-price">84 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <a href="#smartphones" class="category-link">
+                    <a href="#" class="category-link">
                         Все смартфоны <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -1022,33 +1526,42 @@
                     
                     <div class="category-products">
                         <div class="product-list">
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('LG OLED C3 55\"', 129990, 'Телевизоры')">
                                 <div class="product-image">📺</div>
                                 <div class="product-info">
                                     <div class="product-name">LG OLED C3 55"</div>
                                     <div class="product-price">129 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Samsung QLED Q80C 65\"', 149990, 'Телевизоры')">
                                 <div class="product-image">📺</div>
                                 <div class="product-info">
                                     <div class="product-name">Samsung QLED Q80C 65"</div>
                                     <div class="product-price">149 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Sony Bravia XR A80L 55\"', 139990, 'Телевизоры')">
                                 <div class="product-image">📺</div>
                                 <div class="product-info">
                                     <div class="product-name">Sony Bravia XR A80L 55"</div>
                                     <div class="product-price">139 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <a href="#tv" class="category-link">
+                    <a href="#" class="category-link">
                         Все телевизоры <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -1063,33 +1576,42 @@
                     
                     <div class="category-products">
                         <div class="product-list">
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('MacBook Pro 16\" M3', 289990, 'Ноутбуки')">
                                 <div class="product-image">💻</div>
                                 <div class="product-info">
                                     <div class="product-name">MacBook Pro 16" M3</div>
                                     <div class="product-price">289 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('ASUS ROG Zephyrus G14', 149990, 'Ноутбуки')">
                                 <div class="product-image">💻</div>
                                 <div class="product-info">
                                     <div class="product-name">ASUS ROG Zephyrus G14</div>
                                     <div class="product-price">149 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="product-item">
+                            <div class="product-item" onclick="addToCart('Dell XPS 13 Plus', 169990, 'Ноутбуки')">
                                 <div class="product-image">💻</div>
                                 <div class="product-info">
                                     <div class="product-name">Dell XPS 13 Plus</div>
                                     <div class="product-price">169 990 ₽</div>
+                                    <div class="add-to-cart-hint">
+                                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <a href="#laptops" class="category-link">
+                    <a href="#" class="category-link">
                         Все ноутбуки <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -1211,7 +1733,7 @@
         </div>
     </section>
 
-    <!-- КОНТАКТЫ -->
+    <!-- КОНТАКТЫ (ИСПРАВЛЕНО - ХОРОШО ВИДНО) -->
     <section id="contact" class="section">
         <div class="container">
             <div class="section-title animate-fadeIn">
@@ -1229,7 +1751,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Основатель и CEO</h4>
-                            <p><strong>Даниил Александрович</strong></p>
+                            <p><strong>Даниил</strong></p>
                             <p>Лично отвечает за всё, что происходит в магазине</p>
                         </div>
                     </div>
@@ -1241,8 +1763,8 @@
                         <div class="contact-details">
                             <h4>Telegram</h4>
                             <p>Основной канал связи для быстрых консультаций</p>
-                            <a href="https://t.me/daab17" target="_blank" class="telegram-badge">
-                                <i class="fab fa-telegram"></i> @daab17
+                            <a href="https://t.me/dtwo1" target="_blank" class="telegram-badge">
+                                <i class="fab fa-telegram"></i> @dtwo1
                             </a>
                         </div>
                     </div>
@@ -1286,13 +1808,57 @@
         </div>
     </section>
 
-    <!-- ФУТЕР -->
+    <!-- СТРАНИЦА КОРЗИНЫ -->
+    <div id="cart-page" class="section cart-page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ваша корзина</h2>
+                <p>Товары, которые вы добавили для покупки</p>
+            </div>
+            
+            <div id="empty-cart" style="text-align: center; padding: 4rem; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #e0e0e0; margin-bottom: 1.5rem;"></i>
+                <h3 style="color: #666; margin-bottom: 1rem;">Корзина пуста</h3>
+                <p style="color: #888; margin-bottom: 2rem;">Добавьте товары из каталога, чтобы сделать заказ</p>
+                <a href="#products" class="btn btn-primary" onclick="showPage('products')">
+                    <i class="fas fa-shopping-bag"></i> Перейти к товарам
+                </a>
+            </div>
+            
+            <div id="cart-items-container" style="display: none;">
+                <!-- Товары будут добавлены через JS -->
+            </div>
+            
+            <div id="cart-summary" style="display: none;">
+                <div class="cart-summary">
+                    <h3 style="margin-bottom: 1.5rem; color: #333;">Итог заказа</h3>
+                    <div class="summary-row">
+                        <span>Товары:</span>
+                        <span id="cart-total-price">0 ₽</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Доставка:</span>
+                        <span>Бесплатно</span>
+                    </div>
+                    <div class="summary-row" style="font-weight: 700; border-bottom: none;">
+                        <span>Итого:</span>
+                        <span class="summary-total" id="cart-total">0 ₽</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">
+                        <i class="fas fa-credit-card"></i> Оформить заказ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР (ИСПРАВЛЕНО - ХОРОШО ВИДНО) -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
                     <h4>TechStore</h4>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">Новый магазин электроники с честным подходом. Качество, надёжность и индивидуальный сервис.</p>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">Новый магазин электроники с честным подходом. Качество, надёжность и индивидуальный сервис.</p>
                     <div class="social-links">
                         <a href="https://t.me/dtwo1" class="social-link" target="_blank">
                             <i class="fab fa-telegram"></i>
@@ -1334,126 +1900,442 @@
                         <li><a href="https://t.me/dtwo1" target="_blank"><i class="fab fa-telegram"></i> @dtwo1</a></li>
                         <li><a href="mailto:hello@techstore.ru"><i class="fas fa-envelope"></i> hello@techstore.ru</a></li>
                     </ul>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 1rem; font-size: 0.9rem;">
-                        <i class="fas fa-user"></i> Даниил Александрович, основатель TechStore
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-top: 1rem; font-size: 0.9rem;">
+                        <i class="fas fa-user"></i> Даниил, основатель TechStore
                     </p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 TechStore. Мы только начинаем, но уже стремимся быть лучшими.</p>
-                <p style="margin-top: 0.5rem;">2025 TechStore.</p>
+                <p>&copy; 2024 TechStore. Мы только начинаем, но уже стремимся быть лучшими.</p>
+                <p style="margin-top: 0.5rem;">Сайт создан и размещён на GitHub Pages</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- МОДАЛКА АВТОРИЗАЦИИ -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="auth-title">Вход в аккаунт</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="auth-form">
+                <!-- Форма будет заполнена через JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
     <script>
-        // ИНИЦИАЛИЗАЦИЯ
+        // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
+        let currentUser = null;
+        let cart = [];
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
         document.addEventListener('DOMContentLoaded', function() {
+            initAuth();
+            initPageNavigation();
+            initAnimations();
+            initScrollEffects();
+            
             // Обновляем год в футере
             const year = new Date().getFullYear();
             document.querySelector('.copyright p').innerHTML = 
                 document.querySelector('.copyright p').innerHTML.replace('2024', year);
-            
-            // Инициализируем анимации
-            initAnimations();
         });
-        
-        // ПРОГРЕСС БАР ПРОКРУТКИ
-        window.addEventListener('scroll', function() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-            
-            // Показываем/скрываем кнопку "Наверх"
-            const scrollToTop = document.getElementById('scrollToTop');
-            if (window.scrollY > 500) {
-                scrollToTop.classList.add('visible');
-            } else {
-                scrollToTop.classList.remove('visible');
+
+        // ===== УПРАВЛЕНИЕ АВТОРИЗАЦИЕЙ =====
+        function initAuth() {
+            // Проверяем, есть ли сохранённый пользователь
+            const savedUser = localStorage.getItem('techstore_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserUI();
+                loadCart();
             }
-        });
-        
-        // КНОПКА "НАВЕРХ"
-        document.getElementById('scrollToTop').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // ПЛАВНАЯ ПРОКРУТКА ПО ЯКОРЯМ
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // ФОРМА ОБРАТНОЙ СВЯЗИ
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
             
-            const name = document.getElementById('name').value;
-            
-            // Показываем уведомление
-            showNotification(`Спасибо, ${name}! Ваше сообщение отправлено. Я свяжусь с вами в течение дня.`, 'success');
-            
-            // Очищаем форму
-            this.reset();
-        });
-        
-        // ФУНКЦИЯ ПОКАЗА УВЕДОМЛЕНИЙ
-        function showNotification(message, type = 'success') {
-            // Создаём элемент уведомления
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : '#ef4444'};
-                color: white;
-                padding: 1.25rem 1.75rem;
-                border-radius: 12px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-                max-width: 400px;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            `;
-            
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Удаляем уведомление через 4 секунды
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 4000);
+            // Инициализируем пользовательский интерфейс
+            updateUserUI();
         }
-        
-        // АНИМАЦИИ ПРИ ПРОКРУТКЕ
+
+        function updateUserUI() {
+            const userSection = document.getElementById('user-section');
+            if (!userSection) return;
+            
+            if (currentUser) {
+                const firstLetter = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : currentUser.email.charAt(0).toUpperCase();
+                userSection.innerHTML = `
+                    <div class="user-info">
+                        <div class="user-avatar">${firstLetter}</div>
+                        <span>${currentUser.name || currentUser.email}</span>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                `;
+            } else {
+                userSection.innerHTML = `
+                    <button class="btn btn-outline" onclick="showAuthModal('login')" style="padding: 0.6rem 1.2rem; font-size: 1rem;">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                `;
+            }
+        }
+
+        function showAuthModal(mode = 'login') {
+            const modal = document.getElementById('auth-modal');
+            const title = document.getElementById('auth-title');
+            const form = document.getElementById('auth-form');
+            
+            if (mode === 'login') {
+                title.textContent = 'Вход в аккаунт';
+                form.innerHTML = `
+                    <div class="auth-form-group">
+                        <label>Email</label>
+                        <input type="email" id="auth-email" placeholder="your@email.com">
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="auth-password" placeholder="••••••••">
+                    </div>
+                    <button type="button" class="auth-btn" onclick="handleAuth('login')">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                    <div class="auth-switch">
+                        Нет аккаунта? <a href="#" onclick="showAuthModal('register')">Зарегистрироваться</a>
+                    </div>
+                `;
+            } else {
+                title.textContent = 'Регистрация';
+                form.innerHTML = `
+                    <div class="auth-form-group">
+                        <label>Имя (необязательно)</label>
+                        <input type="text" id="auth-name" placeholder="Ваше имя">
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Email</label>
+                        <input type="email" id="auth-email" placeholder="your@email.com">
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="auth-password" placeholder="••••••••">
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Подтвердите пароль</label>
+                        <input type="password" id="auth-confirm-password" placeholder="••••••••">
+                    </div>
+                    <button type="button" class="auth-btn" onclick="handleAuth('register')">
+                        <i class="fas fa-user-plus"></i> Зарегистрироваться
+                    </button>
+                    <div class="auth-switch">
+                        Уже есть аккаунт? <a href="#" onclick="showAuthModal('login')">Войти</a>
+                    </div>
+                `;
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('active');
+        }
+
+        function handleAuth(action) {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const confirmPassword = document.getElementById('auth-confirm-password')?.value;
+            const name = document.getElementById('auth-name')?.value || email.split('@')[0];
+            
+            // Валидация
+            if (!email || !password) {
+                showNotification('Заполните все поля', 'error');
+                return;
+            }
+            
+            if (action === 'register' && password !== confirmPassword) {
+                showNotification('Пароли не совпадают', 'error');
+                return;
+            }
+            
+            // Получаем пользователей из localStorage
+            let users = JSON.parse(localStorage.getItem('techstore_users')) || [];
+            
+            if (action === 'login') {
+                // Вход
+                const user = users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('techstore_user', JSON.stringify(currentUser));
+                    closeAuthModal();
+                    updateUserUI();
+                    loadCart();
+                    showNotification('Успешный вход!', 'success');
+                } else {
+                    showNotification('Неверный email или пароль', 'error');
+                }
+            } else {
+                // Регистрация
+                if (users.some(u => u.email === email)) {
+                    showNotification('Пользователь с таким email уже существует', 'error');
+                    return;
+                }
+                
+                const newUser = {
+                    id: Date.now(),
+                    email,
+                    password,
+                    name,
+                    isAdmin: email === 'danya@admin.com' && password === 'admin123'
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('techstore_users', JSON.stringify(users));
+                
+                currentUser = newUser;
+                localStorage.setItem('techstore_user', JSON.stringify(currentUser));
+                
+                closeAuthModal();
+                updateUserUI();
+                showNotification('Регистрация успешна!', 'success');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('techstore_user');
+            updateUserUI();
+            cart = [];
+            updateCart();
+            showNotification('Вы вышли из аккаунта', 'success');
+            showPage('hero');
+        }
+
+        // ===== УПРАВЛЕНИЕ КОРЗИНОЙ =====
+        function addToCart(productName, price, category) {
+            if (!currentUser) {
+                showNotification('Для добавления в корзину войдите в аккаунт', 'error');
+                showAuthModal('login');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    name: productName,
+                    price: price,
+                    category: category,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${productName} добавлен в корзину`, 'success');
+        }
+
+        function updateCart() {
+            // Сохраняем корзину
+            if (currentUser) {
+                localStorage.setItem(`techstore_cart_${currentUser.id}`, JSON.stringify(cart));
+            }
+            
+            // Обновляем счетчик
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            updateCartCount(totalItems);
+            
+            // Обновляем страницу корзины
+            updateCartPage();
+        }
+
+        function updateCartCount(count) {
+            let cartCount = document.querySelector('.cart-count');
+            if (!cartCount) {
+                // Создаем счетчик если его нет
+                const cartLink = document.querySelector('.nav-links a[href="#cart-page"]');
+                if (cartLink) {
+                    cartLink.innerHTML += `<span class="cart-count">${count}</span>`;
+                }
+            } else {
+                cartCount.textContent = count;
+            }
+        }
+
+        function loadCart() {
+            if (!currentUser) return;
+            
+            const savedCart = localStorage.getItem(`techstore_cart_${currentUser.id}`);
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        }
+
+        function updateCartPage() {
+            const cartContainer = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartSummary = document.getElementById('cart-summary');
+            const cartTotal = document.getElementById('cart-total-price');
+            const cartTotalMain = document.getElementById('cart-total');
+            
+            if (!cartContainer || !emptyCart || !cartSummary) return;
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartContainer.style.display = 'none';
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartContainer.style.display = 'block';
+            cartSummary.style.display = 'block';
+            
+            // Обновляем список товаров
+            cartContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="cart-item-image">
+                        <div class="cart-item-icon">
+                            ${getCategoryIcon(item.category)}
+                        </div>
+                    </div>
+                    <div class="cart-item-info">
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <div class="cart-item-category">${item.category}</div>
+                        <div class="cart-item-price">${item.price} ₽ × ${item.quantity}</div>
+                        <div class="cart-item-controls">
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                cartContainer.appendChild(itemElement);
+            });
+            
+            // Обновляем итоговую сумму
+            if (cartTotal) {
+                cartTotal.textContent = total + ' ₽';
+            }
+            if (cartTotalMain) {
+                cartTotalMain.textContent = total + ' ₽';
+            }
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity < 1) {
+                    removeFromCart(itemId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        function checkout() {
+            if (!currentUser) {
+                showNotification('Для оформления заказа войдите в аккаунт', 'error');
+                showAuthModal('login');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showNotification('Корзина пуста', 'error');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const order = {
+                id: 'ORD-' + Date.now(),
+                userId: currentUser.id,
+                items: [...cart],
+                total: total,
+                status: 'pending',
+                date: new Date().toISOString()
+            };
+            
+            // Сохраняем заказ
+            let userOrders = JSON.parse(localStorage.getItem(`techstore_orders_${currentUser.id}`)) || [];
+            userOrders.unshift(order);
+            localStorage.setItem(`techstore_orders_${currentUser.id}`, JSON.stringify(userOrders));
+            
+            // Очищаем корзину
+            cart = [];
+            updateCart();
+            
+            showNotification(`Заказ ${order.id} оформлен! Сумма: ${total} ₽`, 'success');
+        }
+
+        function getCategoryIcon(category) {
+            switch(category) {
+                case 'Смартфоны': return '📱';
+                case 'Телевизоры': return '📺';
+                case 'Ноутбуки': return '💻';
+                default: return '📦';
+            }
+        }
+
+        // ===== УПРАВЛЕНИЕ СТРАНИЦАМИ =====
+        function initPageNavigation() {
+            // Плавная прокрутка по якорям
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    if (targetId === '#cart-page') {
+                        showPage('cart-page');
+                    } else {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        function showPage(pageId) {
+            // Скрываем все страницы кроме основной
+            if (pageId === 'cart-page') {
+                // Показываем страницу корзины
+                document.getElementById('cart-page').classList.add('active');
+                document.getElementById('cart-page').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Скрываем страницу корзины если она открыта
+                document.getElementById('cart-page').classList.remove('active');
+            }
+        }
+
+        // ===== АНИМАЦИИ И ЭФФЕКТЫ =====
         function initAnimations() {
             const observerOptions = {
                 threshold: 0.1,
@@ -1468,70 +2350,89 @@
                 });
             }, observerOptions);
             
-            // Наблюдаем за всеми анимируемыми элементами
             document.querySelectorAll('.animate-fadeIn').forEach(element => {
                 observer.observe(element);
             });
         }
-        
-        // ДОБАВЛЕНИЕ В КОРЗИНУ
-        document.querySelectorAll('.product-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const productName = this.querySelector('.product-name').textContent;
-                const productPrice = this.querySelector('.product-price').textContent;
+
+        function initScrollEffects() {
+            // Прогресс-бар
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
                 
-                showNotification(`${productName} за ${productPrice} добавлен в корзину`, 'success');
-                
-                // Анимация клика
-                this.style.transform = 'scale(0.95)';
+                // Кнопка "Наверх"
+                const scrollToTop = document.getElementById('scrollToTop');
+                if (window.scrollY > 500) {
+                    scrollToTop.classList.add('visible');
+                } else {
+                    scrollToTop.classList.remove('visible');
+                }
+            });
+            
+            // Кнопка "Наверх"
+            document.getElementById('scrollToTop').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // ===== УВЕДОМЛЕНИЯ =====
+        function showNotification(message, type = 'success') {
+            // Создаем уведомление
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                </div>
+                <div class="notification-text">${message}</div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Показываем
+            setTimeout(() => notification.classList.add('active'), 10);
+            
+            // Удаляем через 3 секунды
+            setTimeout(() => {
+                notification.classList.remove('active');
                 setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // ===== ФОРМА ОБРАТНОЙ СВЯЗИ =====
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            showNotification(`Спасибо, ${name}! Ваше сообщение отправлено. Я свяжусь с вами в течение дня.`, 'success');
+            
+            // Очищаем форму
+            this.reset();
+        });
+
+        // ===== ЗАКРЫТИЕ МОДАЛОК =====
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.modal').classList.remove('active');
             });
         });
         
-        // ДОБАВЛЯЕМ СТИЛИ ДЛЯ АНИМАЦИЙ УВЕДОМЛЕНИЙ
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
                 }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // КОНТРОЛЬ ПРОКРУТКИ ДЛЯ НАВИГАЦИИ
-        let lastScroll = 0;
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
-            const navbar = document.querySelector('.navbar');
-            
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                // Прокрутка вниз
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                // Прокрутка вверх или в начале
-                navbar.style.transform = 'translateY(0)';
-            }
-            
-            lastScroll = currentScroll;
+            });
         });
     </script>
 </body>
