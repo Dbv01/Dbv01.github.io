@@ -1095,13 +1095,15 @@
             transform: translateY(-2px);
         }
 
-        /* ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА - ПРОСТАЯ И РАБОЧАЯ */
+        /* ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА - С ПРОКРУТКОЙ */
         .checkout-form-container {
-            padding: 0 40px 40px;
+            padding: 0 40px 20px;
+            overflow-y: auto;
+            max-height: 60vh;
         }
 
         .checkout-form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .checkout-form-group label {
@@ -1115,7 +1117,7 @@
         .checkout-form-group input,
         .checkout-form-group textarea {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 18px;
             background: var(--light);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 12px;
@@ -1132,15 +1134,15 @@
         }
 
         .checkout-form-group textarea {
-            min-height: 80px;
             resize: vertical;
+            min-height: 60px;
         }
 
         .order-summary-box {
             background: var(--light);
             padding: 20px;
             border-radius: 12px;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .order-summary-box h4 {
@@ -1155,6 +1157,7 @@
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 15px;
         }
 
         .order-total-line {
@@ -1167,10 +1170,10 @@
             font-size: 18px;
         }
 
-        /* КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА - ГАРАНТИРОВАННО ВИДНА */
+        /* КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА */
         .confirm-order-button {
             width: 100%;
-            padding: 20px;
+            padding: 18px;
             background: var(--accent);
             color: white;
             border: none;
@@ -1179,7 +1182,6 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1387,6 +1389,10 @@
             
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .checkout-form-container {
+                max-height: 50vh;
             }
         }
 
@@ -1760,43 +1766,43 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА - УПРОЩЕННАЯ И РАБОЧАЯ -->
+    <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА - С ПРОКРУТКОЙ И КНОПКОЙ ВНИЗУ -->
     <div id="checkout-modal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <div class="modal-header">
+        <div class="modal-content" style="max-width: 500px; display: flex; flex-direction: column; max-height: 90vh;">
+            <div class="modal-header" style="flex-shrink: 0;">
                 <h3 class="modal-title">Оформление заказа</h3>
                 <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
             </div>
             
-            <div class="checkout-form-container">
-                <h4 style="margin-bottom: 20px; color: var(--dark);">Ваши данные для доставки</h4>
+            <div class="checkout-form-container" style="flex: 1; overflow-y: auto;">
+                <h4 style="margin-bottom: 20px; color: var(--dark); padding: 0 40px;">Ваши данные для доставки</h4>
                 
-                <div class="checkout-form-group">
+                <div class="checkout-form-group" style="padding: 0 40px;">
                     <label>ФИО *</label>
                     <input type="text" id="checkout-name" placeholder="Иванов Иван Иванович" required>
                 </div>
                 
-                <div class="checkout-form-group">
+                <div class="checkout-form-group" style="padding: 0 40px;">
                     <label>Телефон *</label>
                     <input type="tel" id="checkout-phone" placeholder="+7 (900) 123-45-67" required>
                 </div>
                 
-                <div class="checkout-form-group">
+                <div class="checkout-form-group" style="padding: 0 40px;">
                     <label>Email</label>
                     <input type="email" id="checkout-email" placeholder="email@example.com">
                 </div>
                 
-                <div class="checkout-form-group">
+                <div class="checkout-form-group" style="padding: 0 40px;">
                     <label>Адрес доставки *</label>
-                    <textarea id="checkout-address" placeholder="Город, улица, дом, квартира" required></textarea>
+                    <textarea id="checkout-address" placeholder="Город, улица, дом, квартира" required style="min-height: 60px;"></textarea>
                 </div>
                 
-                <div class="checkout-form-group">
+                <div class="checkout-form-group" style="padding: 0 40px;">
                     <label>Комментарий к заказу</label>
-                    <textarea id="checkout-comment" placeholder="Дополнительные пожелания"></textarea>
+                    <textarea id="checkout-comment" placeholder="Дополнительные пожелания" style="min-height: 50px;"></textarea>
                 </div>
                 
-                <div class="order-summary-box">
+                <div class="order-summary-box" style="margin: 20px 40px;">
                     <h4>Ваш заказ</h4>
                     <div id="order-items-container">
                         <!-- Товары будут добавлены через JS -->
@@ -1807,7 +1813,12 @@
                     </div>
                 </div>
                 
-                <!-- КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА - ТОЧНО БУДЕТ ВИДНА -->
+                <!-- ЗАПОЛНИТЕЛЬ ДЛЯ ТОГО, ЧТОБЫ КНОПКА НЕ ПЕРЕКРЫВАЛАСЬ -->
+                <div style="height: 20px; flex-shrink: 0;"></div>
+            </div>
+            
+            <!-- КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА - ВНЕ ПРОКРУЧИВАЕМОЙ ОБЛАСТИ -->
+            <div style="padding: 20px 40px; border-top: 1px solid rgba(0,0,0,0.1); background: white; flex-shrink: 0;">
                 <button class="confirm-order-button" onclick="submitOrder()">
                     <i class="fas fa-check-circle"></i> Подтвердить заказ
                 </button>
