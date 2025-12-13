@@ -913,7 +913,7 @@
             padding: 32px 40px;
             background: var(--light);
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            display: block !important; /* КЛЮЧЕВОЕ ИЗМЕНЕНИЕ */
+            display: block !important;
         }
 
         .summary-row {
@@ -1095,7 +1095,15 @@
             transform: translateY(-2px);
         }
 
-        /* ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА */
+        /* ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА - ПЕРЕПИСАНА С НУЛЯ */
+        .checkout-modal .modal-content {
+            max-width: 500px;
+        }
+
+        .checkout-form {
+            padding: 0 40px 40px;
+        }
+
         .checkout-form-group {
             margin-bottom: 24px;
         }
@@ -1104,8 +1112,12 @@
             display: block;
             margin-bottom: 8px;
             color: var(--dark);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
+        }
+
+        .checkout-form-group label span {
+            color: var(--danger);
         }
 
         .checkout-form-group input,
@@ -1128,8 +1140,126 @@
         }
 
         .checkout-form-group textarea {
-            min-height: 80px;
+            min-height: 100px;
             resize: vertical;
+        }
+
+        .order-summary {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .order-summary h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .order-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .confirm-order-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .confirm-order-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+        }
+
+        .confirm-order-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* УВЕДОМЛЕНИЯ */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: white;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-heavy);
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            max-width: 400px;
+            border-left: 4px solid;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.active {
+            display: flex;
+        }
+
+        .notification.success {
+            border-left-color: var(--success);
+            background: linear-gradient(135deg, #F0FFF4, #E6FFED);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger);
+            background: linear-gradient(135deg, #FFF5F5, #FFEBEB);
+        }
+
+        .notification-icon {
+            font-size: 24px;
+        }
+
+        .notification.success .notification-icon {
+            color: var(--success);
+        }
+
+        .notification.error .notification-icon {
+            color: var(--danger);
+        }
+
+        .notification-text {
+            flex: 1;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
         }
 
         /* АДАПТИВНОСТЬ */
@@ -1247,7 +1377,8 @@
             
             .products-container,
             .cart-items,
-            .auth-form {
+            .auth-form,
+            .checkout-form {
                 padding: 0 24px 24px;
             }
             
@@ -1295,68 +1426,6 @@
                 padding: 10px 16px;
                 font-size: 14px;
             }
-        }
-
-        /* УВЕДОМЛЕНИЯ */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: white;
-            padding: 20px 24px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-heavy);
-            z-index: 3000;
-            animation: slideInRight 0.3s ease;
-            display: none;
-            align-items: center;
-            gap: 16px;
-            max-width: 400px;
-            border-left: 4px solid;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .notification.active {
-            display: flex;
-        }
-
-        .notification.success {
-            border-left-color: var(--success);
-            background: linear-gradient(135deg, #F0FFF4, #E6FFED);
-        }
-
-        .notification.error {
-            border-left-color: var(--danger);
-            background: linear-gradient(135deg, #FFF5F5, #FFEBEB);
-        }
-
-        .notification-icon {
-            font-size: 24px;
-        }
-
-        .notification.success .notification-icon {
-            color: var(--success);
-        }
-
-        .notification.error .notification-icon {
-            color: var(--danger);
-        }
-
-        .notification-text {
-            flex: 1;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 16px;
         }
     </style>
 </head>
@@ -1676,7 +1745,7 @@
                 </div>
             </div>
             <!-- ЭТО КЛЮЧЕВАЯ ЧАСТЬ - СУММА И КНОПКА -->
-            <div class="cart-summary" style="display: block !important;">
+            <div class="cart-summary">
                 <div class="summary-row">
                     <span>Товары:</span>
                     <span id="cart-subtotal">0 ₽</span>
@@ -1691,64 +1760,71 @@
                 </div>
                 
                 <!-- КНОПКА "ОФОРМИТЬ ЗАКАЗ" -->
-                <button class="checkout-btn" id="proceed-to-checkout-btn" onclick="showCheckoutForm()">
+                <button class="checkout-btn" onclick="openCheckoutModal()">
                     <i class="fas fa-credit-card"></i> Оформить заказ
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА -->
-<div id="checkout-modal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title">Данные для доставки</h3>
-            <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
-        </div>
-        
-        <!-- ФОРМА -->
-        <form id="checkout-form" class="auth-form" style="padding: 0 40px 40px;">
-            <div class="auth-form-group">
-                <label>ФИО *</label>
-                <input type="text" id="checkout-name" placeholder="Иванов Иван Иванович" required>
+    <!-- МОДАЛКА ФОРМЫ ОФОРМЛЕНИЯ ЗАКАЗА - ПОЛНОСТЬЮ ПЕРЕПИСАНА -->
+    <div id="checkout-modal" class="modal checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Оформление заказа</h3>
+                <button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button>
             </div>
             
-            <div class="auth-form-group">
-                <label>Телефон *</label>
-                <input type="tel" id="checkout-phone" placeholder="+7 (900) 123-45-67" required>
-            </div>
-            
-            <div class="auth-form-group">
-                <label>Email</label>
-                <input type="email" id="checkout-email" placeholder="email@example.com">
-            </div>
-            
-            <div class="auth-form-group">
-                <label>Адрес доставки *</label>
-                <textarea id="checkout-address" rows="3" placeholder="Город, улица, дом, квартира" required></textarea>
-            </div>
-            
-            <div class="auth-form-group">
-                <label>Комментарий к заказу</label>
-                <textarea id="checkout-comment" rows="2" placeholder="Например, код домофона или удобное время"></textarea>
-            </div>
-            
-            <!-- ИТОГО И КНОПКА ПОДТВЕРЖДЕНИЯ -->
-            <div style="background: var(--light); padding: 20px; border-radius: 12px; margin: 30px 0;">
-                <div class="summary-row" style="margin-bottom: 10px;">
-                    <span>К оплате:</span>
-                    <span id="checkout-summary-total">0 ₽</span>
+            <div class="checkout-form">
+                <h4 style="margin-bottom: 24px; color: var(--dark);">Ваши данные для доставки</h4>
+                
+                <div class="checkout-form-group">
+                    <label>ФИО <span>*</span></label>
+                    <input type="text" id="order-name" placeholder="Иванов Иван Иванович" required>
                 </div>
-                <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">Оплата осуществляется курьеру при получении</p>
+                
+                <div class="checkout-form-group">
+                    <label>Телефон <span>*</span></label>
+                    <input type="tel" id="order-phone" placeholder="+7 (900) 123-45-67" required>
+                </div>
+                
+                <div class="checkout-form-group">
+                    <label>Email</label>
+                    <input type="email" id="order-email" placeholder="email@example.com">
+                </div>
+                
+                <div class="checkout-form-group">
+                    <label>Адрес доставки <span>*</span></label>
+                    <textarea id="order-address" placeholder="Город, улица, дом, квартира, индекс" required></textarea>
+                </div>
+                
+                <div class="checkout-form-group">
+                    <label>Комментарий к заказу</label>
+                    <textarea id="order-comment" placeholder="Дополнительные пожелания, код домофона, удобное время доставки"></textarea>
+                </div>
+                
+                <div class="order-summary">
+                    <h4>Ваш заказ</h4>
+                    <div id="order-items-list">
+                        <!-- Товары будут добавлены через JS -->
+                    </div>
+                    <div class="order-summary-item" style="border-top: 2px solid rgba(0,0,0,0.1); padding-top: 16px; margin-top: 16px; font-weight: 700;">
+                        <span>Итого к оплате:</span>
+                        <span id="order-total">0 ₽</span>
+                    </div>
+                    <p style="font-size: 14px; color: var(--gray); margin-top: 16px;">
+                        <i class="fas fa-info-circle"></i> Оплата осуществляется курьеру при получении заказа
+                    </p>
+                </div>
+                
+                <!-- КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА -->
+                <button class="confirm-order-btn" onclick="confirmOrder()" id="confirm-order-btn">
+                    <i class="fas fa-check-circle"></i> Подтвердить заказ
+                </button>
             </div>
-            
-            <!-- КНОПКА ПОДТВЕРЖДЕНИЯ ЗАКАЗА -->
-            <button type="button" class="auth-btn" style="width: 100%; font-size: 18px; padding: 20px; background: var(--accent); color: white; border: none; border-radius: 16px; cursor: pointer; margin-top: 20px;" onclick="processCheckout()">
-                <i class="fas fa-check-circle"></i> Подтвердить заказ
-            </button>
-        </form>
+        </div>
     </div>
-</div>
+
     <!-- УВЕДОМЛЕНИЕ -->
     <div id="notification" class="notification">
         <i id="notification-icon" class="fas fa-check-circle"></i>
@@ -1764,38 +1840,38 @@
         // Данные товаров по категориям
         const productsData = {
             smartphones: [
-                { name: "iPhone 15 Pro", price: 109990, description: "Титановый корпус, процессор A17 Pro", icon: "📱" },
-                { name: "Samsung Galaxy S24 Ultra", price: 129990, description: "S Pen, камера 200 МП", icon: "📱" },
-                { name: "Xiaomi 14 Pro", price: 89990, description: "Камера Leica, Snapdragon 8 Gen 3", icon: "📱" },
-                { name: "Google Pixel 8 Pro", price: 94990, description: "Тензорный чип G3", icon: "📱" },
-                { name: "OnePlus 12", price: 79990, description: "120Hz дисплей, 100W зарядка", icon: "📱" }
+                { id: 1, name: "iPhone 15 Pro", price: 109990, description: "Титановый корпус, процессор A17 Pro", icon: "📱" },
+                { id: 2, name: "Samsung Galaxy S24 Ultra", price: 129990, description: "S Pen, камера 200 МП", icon: "📱" },
+                { id: 3, name: "Xiaomi 14 Pro", price: 89990, description: "Камера Leica, Snapdragon 8 Gen 3", icon: "📱" },
+                { id: 4, name: "Google Pixel 8 Pro", price: 94990, description: "Тензорный чип G3", icon: "📱" },
+                { id: 5, name: "OnePlus 12", price: 79990, description: "120Hz дисплей, 100W зарядка", icon: "📱" }
             ],
             tablets: [
-                { name: "iPad Pro 12.9\"", price: 149990, description: "M2 чип, Liquid Retina XDR", icon: "📱" },
-                { name: "Samsung Galaxy Tab S9 Ultra", price: 139990, description: "14.6\" AMOLED, S Pen", icon: "📱" },
-                { name: "Huawei MatePad Pro 13.2\"", price: 119990, description: "OLED, HarmonyOS 4", icon: "📱" },
-                { name: "Xiaomi Pad 6 Pro", price: 69990, description: "Snapdragon 8+ Gen 1", icon: "📱" }
+                { id: 6, name: "iPad Pro 12.9\"", price: 149990, description: "M2 чип, Liquid Retina XDR", icon: "📱" },
+                { id: 7, name: "Samsung Galaxy Tab S9 Ultra", price: 139990, description: "14.6\" AMOLED, S Pen", icon: "📱" },
+                { id: 8, name: "Huawei MatePad Pro 13.2\"", price: 119990, description: "OLED, HarmonyOS 4", icon: "📱" },
+                { id: 9, name: "Xiaomi Pad 6 Pro", price: 69990, description: "Snapdragon 8+ Gen 1", icon: "📱" }
             ],
             laptops: [
-                { name: "MacBook Pro 16\" M3 Max", price: 349990, description: "Максимальная производительность", icon: "💻" },
-                { name: "ASUS ROG Zephyrus G16", price: 199990, description: "RTX 4070, OLED 240Hz", icon: "💻" },
-                { name: "Dell XPS 15", price: 179990, description: "4K дисплей, Intel Core i9", icon: "💻" },
-                { name: "Lenovo Legion Pro 7", price: 189990, description: "RTX 4080, i9-13900HX", icon: "💻" }
+                { id: 10, name: "MacBook Pro 16\" M3 Max", price: 349990, description: "Максимальная производительность", icon: "💻" },
+                { id: 11, name: "ASUS ROG Zephyrus G16", price: 199990, description: "RTX 4070, OLED 240Hz", icon: "💻" },
+                { id: 12, name: "Dell XPS 15", price: 179990, description: "4K дисплей, Intel Core i9", icon: "💻" },
+                { id: 13, name: "Lenovo Legion Pro 7", price: 189990, description: "RTX 4080, i9-13900HX", icon: "💻" }
             ],
             tv: [
-                { name: "LG OLED G3 65\"", price: 199990, description: "4K 120Hz, MLA технология", icon: "📺" },
-                { name: "Samsung QLED QN90C 75\"", price: 229990, description: "Neo QLED, Object Tracking Sound", icon: "📺" },
-                { name: "Sony Bravia XR A95L 55\"", price: 179990, description: "QD-OLED, Cognitive Processor XR", icon: "📺" }
+                { id: 14, name: "LG OLED G3 65\"", price: 199990, description: "4K 120Hz, MLA технология", icon: "📺" },
+                { id: 15, name: "Samsung QLED QN90C 75\"", price: 229990, description: "Neo QLED, Object Tracking Sound", icon: "📺" },
+                { id: 16, name: "Sony Bravia XR A95L 55\"", price: 179990, description: "QD-OLED, Cognitive Processor XR", icon: "📺" }
             ],
             headphones: [
-                { name: "Apple AirPods Pro 2", price: 24990, description: "Активное шумоподавление", icon: "🎧" },
-                { name: "Sony WH-1000XM5", price: 32990, description: "Лучшее шумоподавление", icon: "🎧" },
-                { name: "Samsung Galaxy Buds2 Pro", price: 19990, description: "24-bit Hi-Fi звук", icon: "🎧" }
+                { id: 17, name: "Apple AirPods Pro 2", price: 24990, description: "Активное шумоподавление", icon: "🎧" },
+                { id: 18, name: "Sony WH-1000XM5", price: 32990, description: "Лучшее шумоподавление", icon: "🎧" },
+                { id: 19, name: "Samsung Galaxy Buds2 Pro", price: 19990, description: "24-bit Hi-Fi звук", icon: "🎧" }
             ],
             watches: [
-                { name: "Apple Watch Ultra 2", price: 64990, description: "Спортивные функции", icon: "⌚" },
-                { name: "Samsung Galaxy Watch6 Classic", price: 34990, description: "Физический вращающийся безель", icon: "⌚" },
-                { name: "Garmin Fenix 7", price: 59990, description: "Для экстремальных видов спорта", icon: "⌚" }
+                { id: 20, name: "Apple Watch Ultra 2", price: 64990, description: "Спортивные функции", icon: "⌚" },
+                { id: 21, name: "Samsung Galaxy Watch6 Classic", price: 34990, description: "Физический вращающийся безель", icon: "⌚" },
+                { id: 22, name: "Garmin Fenix 7", price: 59990, description: "Для экстремальных видов спорта", icon: "⌚" }
             ]
         };
 
@@ -1979,11 +2055,10 @@
             showNotification('Вы вышли из аккаунта', 'success');
         }
 
-        // ===== ОТКРЫТИЕ КАТАЛОГА ТОВАРОВ =====
+        // ===== КАТАЛОГ ТОВАРОВ =====
         function openProductsModal(categoryId = 'all') {
             currentCategory = categoryId;
             
-            // Создаем фильтры категорий
             const filtersContainer = document.getElementById('category-filters');
             filtersContainer.innerHTML = '';
             
@@ -1996,37 +2071,27 @@
                 `;
             });
             
-            // Показываем товары
             showProducts();
-            
             document.getElementById('products-title').textContent = 'Каталог товаров';
             openModal('products-modal');
         }
 
-        // ===== ФИЛЬТРАЦИЯ ТОВАРОВ ПО КАТЕГОРИИ =====
         function filterCategory(categoryId) {
             currentCategory = categoryId;
             
-            // Обновляем активную кнопку
             document.querySelectorAll('.category-filter').forEach(btn => {
                 btn.classList.remove('active');
             });
             
             event.target.classList.add('active');
-            
-            // Показываем товары
             showProducts();
         }
 
-        // ===== ПОКАЗАТЬ ТОВАРЫ =====
         function showProducts() {
             const productsContainer = document.getElementById('products-content');
-            
-            // Собираем все товары в один массив
             let allProducts = [];
             
             if (currentCategory === 'all') {
-                // Показываем все товары
                 for (const category in productsData) {
                     productsData[category].forEach(product => {
                         allProducts.push({
@@ -2036,7 +2101,6 @@
                     });
                 }
             } else {
-                // Показываем товары выбранной категории
                 const categoryProducts = productsData[currentCategory] || [];
                 allProducts = categoryProducts.map(product => ({
                     ...product,
@@ -2049,17 +2113,11 @@
                 return;
             }
             
-            // Сортируем по цене (от дорогих к дешевым)
             allProducts.sort((a, b) => b.price - a.price);
             
-            // Показываем товары
             let productsHTML = '<div class="products-grid">';
             
             allProducts.forEach(product => {
-                // ИСПРАВЛЕНИЕ: Используем специальную функцию для безопасного кодирования
-                const safeName = encodeProductName(product.name);
-                const safeCategory = encodeProductName(product.category);
-                
                 productsHTML += `
                     <div class="product-card">
                         <div class="product-icon">${product.icon}</div>
@@ -2074,7 +2132,7 @@
                         <div class="product-price">${product.price.toLocaleString()} ₽</div>
                         <p class="product-description">${product.description}</p>
                         <div class="product-actions">
-                            <button class="btn-add" data-category="${safeCategory}" data-name="${safeName}" data-price="${product.price}">
+                            <button class="btn-add" onclick="addToCart(${product.id}, '${product.category}', '${product.name.replace(/'/g, "\\'")}', ${product.price})">
                                 <i class="fas fa-cart-plus"></i> В корзину
                             </button>
                         </div>
@@ -2084,28 +2142,6 @@
             
             productsHTML += '</div>';
             productsContainer.innerHTML = productsHTML;
-            
-            // Добавляем обработчики кликов после отрисовки товаров
-            setTimeout(() => {
-                document.querySelectorAll('.btn-add').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const category = this.getAttribute('data-category');
-                        const name = this.getAttribute('data-name');
-                        const price = parseFloat(this.getAttribute('data-price'));
-                        addToCart(category, decodeProductName(name), price);
-                    });
-                });
-            }, 100);
-        }
-
-        // Функция для безопасного кодирования названий
-        function encodeProductName(name) {
-            return encodeURIComponent(name);
-        }
-
-        // Функция для декодирования названий
-        function decodeProductName(encodedName) {
-            return decodeURIComponent(encodedName);
         }
 
         function getCategoryName(categoryId) {
@@ -2114,20 +2150,14 @@
         }
 
         // ===== КОРЗИНА =====
-        function addToCart(category, name, price) {
-            if (!currentUser) {
-                showNotification('Войдите в аккаунт для добавления в корзину', 'error');
-                showAuthModal('login');
-                return;
-            }
-            
-            const existingItem = cart.find(item => item.name === name);
+        function addToCart(productId, category, name, price) {
+            const existingItem = cart.find(item => item.id === productId);
             
             if (existingItem) {
                 existingItem.quantity++;
             } else {
                 cart.push({
-                    id: Date.now(),
+                    id: productId,
                     category,
                     name,
                     price,
@@ -2145,9 +2175,7 @@
         }
 
         function updateCart() {
-            // Сохраняем корзину в localStorage
             localStorage.setItem('techstore_cart', JSON.stringify(cart));
-            
             updateCartCount();
             updateCartModal();
         }
@@ -2178,7 +2206,6 @@
                 return;
             }
             
-            // ПОКАЗЫВАЕМ СУММУ И КНОПКУ, ЕСЛИ ЕСТЬ ТОВАРЫ
             cartSummary.style.display = 'block';
             
             let cartHTML = '';
@@ -2214,11 +2241,6 @@
             cartContent.innerHTML = cartHTML;
             document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString() + ' ₽';
             document.getElementById('cart-total').textContent = subtotal.toLocaleString() + ' ₽';
-            
-            // Обновляем сумму в форме оформления заказа, если она открыта
-            if (document.getElementById('checkout-summary-total')) {
-                document.getElementById('checkout-summary-total').textContent = subtotal.toLocaleString() + ' ₽';
-            }
         }
 
         function updateQuantity(itemId, change) {
@@ -2239,83 +2261,6 @@
             showNotification('Товар удалён из корзины', 'success');
         }
 
-        // ===== ОФОРМЛЕНИЕ ЗАКАЗА =====
-        function showCheckoutForm() {
-            if (cart.length === 0) {
-                showNotification('Корзина пуста', 'error');
-                return;
-            }
-            
-            // Подсчитываем итого
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('checkout-summary-total').textContent = total.toLocaleString() + ' ₽';
-            
-            // Заполняем email текущего пользователя, если есть
-            if (currentUser && currentUser.email) {
-                document.getElementById('checkout-email').value = currentUser.email;
-            }
-            
-            // Показываем форму оформления
-            closeModal('cart-modal');
-            openModal('checkout-modal');
-        }
-
-        function processCheckout() {
-            // Собираем данные из формы
-            const name = document.getElementById('checkout-name').value.trim();
-            const phone = document.getElementById('checkout-phone').value.trim();
-            const address = document.getElementById('checkout-address').value.trim();
-            
-            // Проверяем обязательные поля
-            if (!name || !phone || !address) {
-                showNotification('Заполните все обязательные поля: ФИО, телефон и адрес', 'error');
-                return;
-            }
-            
-            // Создаем объект заказа
-            const order = {
-                id: 'ORD-' + Date.now(),
-                name: name,
-                phone: phone,
-                email: document.getElementById('checkout-email').value.trim(),
-                address: address,
-                comment: document.getElementById('checkout-comment').value.trim(),
-                items: JSON.parse(JSON.stringify(cart)), // Копируем корзину
-                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                date: new Date().toLocaleString('ru-RU'),
-                status: 'Новый'
-            };
-            
-            // Сохраняем заказ в localStorage
-            saveOrder(order);
-            
-            // Очищаем корзину
-            cart = [];
-            updateCart();
-            
-            // Закрываем модалку
-            closeModal('checkout-modal');
-            
-            // Показываем подтверждение
-            showNotification(`Заказ ${order.id} оформлен! Сумма: ${order.total.toLocaleString()} ₽. Мы свяжемся с вами в ближайшее время.`, 'success');
-            
-            // Очищаем форму
-            document.getElementById('checkout-name').value = '';
-            document.getElementById('checkout-phone').value = '';
-            document.getElementById('checkout-email').value = '';
-            document.getElementById('checkout-address').value = '';
-            document.getElementById('checkout-comment').value = '';
-        }
-
-        function saveOrder(order) {
-            let orders = JSON.parse(localStorage.getItem('techstore_orders')) || [];
-            orders.push(order);
-            localStorage.setItem('techstore_orders', JSON.stringify(orders));
-            
-            // Выводим информацию о заказе в консоль для отладки
-            console.log('Заказ сохранен:', order);
-        }
-
         function getCategoryIcon(category) {
             switch(category) {
                 case 'smartphones': return '📱';
@@ -2326,6 +2271,122 @@
                 case 'watches': return '⌚';
                 default: return '📦';
             }
+        }
+
+        // ===== ОФОРМЛЕНИЕ ЗАКАЗА - ПЕРЕПИСАНО С НУЛЯ =====
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                showNotification('Корзина пуста', 'error');
+                return;
+            }
+            
+            // Обновляем список товаров в заказе
+            updateOrderSummary();
+            
+            // Заполняем email если пользователь авторизован
+            if (currentUser && currentUser.email) {
+                document.getElementById('order-email').value = currentUser.email;
+            }
+            
+            closeModal('cart-modal');
+            openModal('checkout-modal');
+        }
+
+        function updateOrderSummary() {
+            const orderItemsList = document.getElementById('order-items-list');
+            let itemsHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                itemsHTML += `
+                    <div class="order-summary-item">
+                        <span>${item.name} × ${item.quantity}</span>
+                        <span>${itemTotal.toLocaleString()} ₽</span>
+                    </div>
+                `;
+            });
+            
+            orderItemsList.innerHTML = itemsHTML;
+            document.getElementById('order-total').textContent = total.toLocaleString() + ' ₽';
+        }
+
+        function confirmOrder() {
+            // Получаем данные из формы
+            const name = document.getElementById('order-name').value.trim();
+            const phone = document.getElementById('order-phone').value.trim();
+            const email = document.getElementById('order-email').value.trim();
+            const address = document.getElementById('order-address').value.trim();
+            const comment = document.getElementById('order-comment').value.trim();
+            
+            // Проверяем обязательные поля
+            if (!name) {
+                showNotification('Введите ФИО', 'error');
+                document.getElementById('order-name').focus();
+                return;
+            }
+            
+            if (!phone) {
+                showNotification('Введите телефон', 'error');
+                document.getElementById('order-phone').focus();
+                return;
+            }
+            
+            if (!address) {
+                showNotification('Введите адрес доставки', 'error');
+                document.getElementById('order-address').focus();
+                return;
+            }
+            
+            // Рассчитываем итоговую сумму
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Создаем объект заказа
+            const order = {
+                id: 'ORD-' + Date.now(),
+                date: new Date().toLocaleString('ru-RU'),
+                status: 'Новый',
+                customer: {
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    comment: comment
+                },
+                items: JSON.parse(JSON.stringify(cart)),
+                total: total
+            };
+            
+            // Сохраняем заказ в localStorage
+            saveOrder(order);
+            
+            // Очищаем корзину
+            cart = [];
+            updateCart();
+            
+            // Очищаем форму
+            document.getElementById('order-name').value = '';
+            document.getElementById('order-phone').value = '';
+            document.getElementById('order-email').value = '';
+            document.getElementById('order-address').value = '';
+            document.getElementById('order-comment').value = '';
+            
+            // Закрываем модалку
+            closeModal('checkout-modal');
+            
+            // Показываем уведомление об успешном оформлении
+            showNotification(`Заказ ${order.id} оформлен! Сумма: ${total.toLocaleString()} ₽. Мы свяжемся с вами для подтверждения.`, 'success');
+            
+            // Выводим информацию о заказе в консоль (для отладки)
+            console.log('Заказ оформлен:', order);
+        }
+
+        function saveOrder(order) {
+            let orders = JSON.parse(localStorage.getItem('techstore_orders')) || [];
+            orders.push(order);
+            localStorage.setItem('techstore_orders', JSON.stringify(orders));
         }
 
         // ===== МОДАЛЬНЫЕ ОКНА =====
@@ -2349,7 +2410,7 @@
             
             setTimeout(() => {
                 notification.classList.remove('active');
-            }, 3000);
+            }, 4000);
         }
 
         // ===== ПЛАВНАЯ ПРОКРУТКА =====
