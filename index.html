@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore | Премиум электроника</title>
+    <title>DBTech | Премиум электроника</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* БАЗОВЫЕ СТИЛИ */
@@ -12,6 +12,7 @@
             --primary-light: #333333;
             --accent: #007AFF;
             --accent-dark: #0056CC;
+            --accent-gradient: linear-gradient(135deg, #007AFF 0%, #00D4FF 100%);
             --light: #F5F5F7;
             --light-dark: #E8E8ED;
             --dark: #1D1D1F;
@@ -22,6 +23,8 @@
             --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.15);
             --radius: 20px;
             --radius-sm: 12px;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         * {
@@ -94,7 +97,7 @@
         .logo-icon {
             width: 36px;
             height: 36px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -255,7 +258,7 @@
         }
 
         .btn-primary {
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
         }
@@ -329,7 +332,10 @@
         }
 
         .about-content h2 span {
-            color: var(--accent);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-features {
@@ -348,7 +354,7 @@
         .feature-icon {
             width: 56px;
             height: 56px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -377,7 +383,7 @@
         .about-image-main {
             width: 100%;
             height: 400px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            background: var(--accent-gradient);
             border-radius: 24px;
             display: flex;
             align-items: center;
@@ -408,7 +414,10 @@
         .stat-number {
             font-size: 48px;
             font-weight: 700;
-            color: var(--accent);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
             line-height: 1;
         }
@@ -487,7 +496,7 @@
 
         .category-count {
             display: inline-block;
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             padding: 6px 16px;
             border-radius: 20px;
@@ -550,7 +559,10 @@
         .product-price-page {
             font-size: 28px;
             font-weight: 700;
-            color: var(--accent);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 16px;
         }
 
@@ -561,156 +573,177 @@
             margin-bottom: 24px;
         }
 
-        /* КОНТАКТЫ СТРАНИЦА */
-        .contacts-section-page {
-            background: var(--dark);
+        /* КОНТАКТЫ СТРАНИЦА - СОВРЕМЕННЫЙ СТИЛЬ */
+        .contacts-page {
+            padding-top: 140px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
             color: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            position: relative;
-            margin-top: 40px;
         }
 
-        .contacts-section-page::before {
+        .contacts-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .contacts-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .contacts-header p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .contact-method {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 122, 255, 0.4);
+        }
+
+        .contact-method::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 90%, rgba(0, 122, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 10%, rgba(0, 122, 255, 0.05) 0%, transparent 40%);
+            height: 4px;
+            background: var(--accent-gradient);
         }
 
-        .contacts-container-page {
-            position: relative;
-            z-index: 1;
-            padding: 80px 0;
-        }
-
-        .contact-info-page h1 {
-            font-size: 56px;
-            font-weight: 700;
+        .contact-icon-modern {
+            font-size: 48px;
             margin-bottom: 24px;
-            background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .contact-item-page {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .contact-icon-page {
-            width: 56px;
-            height: 56px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
             color: var(--accent);
-            flex-shrink: 0;
+            display: inline-block;
         }
 
-        .contact-details-page h4 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .contact-method h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
             color: white;
         }
 
-        .contact-details-page p {
-            color: rgba(255, 255, 255, 0.8);
+        .contact-method p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
             line-height: 1.6;
-            margin-bottom: 4px;
         }
 
-        .telegram-badge-page {
+        .contact-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #0088CC;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             padding: 12px 24px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 12px;
             transition: all 0.3s;
         }
 
-        .telegram-badge-page:hover {
-            background: #006699;
+        .contact-link:hover {
+            background: var(--accent);
             transform: translateY(-2px);
         }
 
-        .contact-form-page {
+        .founder-section {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
             border-radius: 24px;
-            padding: 48px;
+            padding: 60px;
+            margin-top: 80px;
+            text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 40px;
         }
 
-        /* БЛОГ СТРАНИЦА */
-        .blog-grid-page {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .blog-post-page {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s;
-        }
-
-        .blog-post-page:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .blog-post-image {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .blog-post-content-page {
-            padding: 30px;
-        }
-
-        .blog-post-meta-page {
-            color: var(--gray);
-            font-size: 14px;
-            margin-bottom: 16px;
+        .founder-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            margin: 0 auto 30px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
         }
 
-        .blog-post-content-page h3 {
-            font-size: 22px;
+        .founder-info h3 {
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-            line-height: 1.3;
+            margin-bottom: 16px;
+            color: white;
         }
 
-        .blog-post-content-page p {
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .founder-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .telegram-badge-modern {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+        }
+
+        .telegram-badge-modern:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(0, 122, 255, 0.4);
+        }
+
+        /* АНИМАЦИЯ ДЛЯ КОНТАКТОВ */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .contact-method:hover .contact-icon-modern {
+            animation: float 2s ease-in-out infinite;
         }
 
         /* ФУТЕР */
@@ -903,7 +936,7 @@
         }
 
         .category-filter.active {
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
         }
@@ -951,7 +984,10 @@
         .product-price {
             font-size: 24px;
             font-weight: 700;
-            color: var(--accent);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 20px;
         }
 
@@ -970,7 +1006,7 @@
         .btn-add {
             flex: 1;
             padding: 12px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 12px;
@@ -1035,7 +1071,10 @@
         }
 
         .cart-item-price {
-            color: var(--accent);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 700;
             font-size: 18px;
         }
@@ -1106,7 +1145,7 @@
         .checkout-btn {
             width: 100%;
             padding: 20px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 16px;
@@ -1195,7 +1234,7 @@
         .auth-btn {
             width: 100%;
             padding: 18px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 16px;
@@ -1238,7 +1277,7 @@
         .user-avatar {
             width: 44px;
             height: 44px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -1344,7 +1383,7 @@
         .confirm-order-button {
             width: 100%;
             padding: 18px;
-            background: var(--accent);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 16px;
@@ -1458,6 +1497,10 @@
             .about-features {
                 grid-template-columns: 1fr;
             }
+            
+            .contacts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -1559,6 +1602,14 @@
             .checkout-form-container {
                 max-height: 50vh;
             }
+            
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .founder-section {
+                padding: 40px 24px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1574,10 +1625,6 @@
                 font-size: 28px;
             }
             
-            .contact-form-page {
-                padding: 32px 24px;
-            }
-            
             .products-grid {
                 grid-template-columns: 1fr;
             }
@@ -1589,6 +1636,14 @@
             .category-filter {
                 padding: 10px 16px;
                 font-size: 14px;
+            }
+            
+            .contacts-header h1 {
+                font-size: 42px;
+            }
+            
+            .contact-method {
+                padding: 30px 24px;
             }
         }
     </style>
@@ -1602,14 +1657,13 @@
                     <div class="logo-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    TechStore
+                    DBTech
                 </div>
                 
                 <div class="nav-links">
                     <div class="nav-link active" onclick="showPage('home')">Главная</div>
                     <div class="nav-link" onclick="showPage('catalog')">Каталог</div>
                     <div class="nav-link" onclick="showPage('about')">О компании</div>
-                    <div class="nav-link" onclick="showPage('blog')">Блог</div>
                     <div class="nav-link" onclick="showPage('contacts')">Контакты</div>
                 </div>
                 
@@ -1654,9 +1708,9 @@
                     <div class="container">
                         <div class="about-container">
                             <div class="about-content">
-                                <h2>Мы — <span>TechStore</span><br>технологии с душой</h2>
+                                <h2>Мы — <span>DBTech</span><br>технологии с душой</h2>
                                 <p style="font-size: 20px; color: var(--gray); line-height: 1.6; margin-bottom: 32px;">
-                                    Наш магазин родился не как очередная точка продаж, а как пространство, где каждая покупка — это начало отношений. Мы верим, что электроника должна не просто работать, а делать жизнь лучше, удобнее и интереснее.
+                                    DBTech был основан в 2025 году как новый подход к продаже премиальной электроники. Мы объединяем экспертизу в технологиях с индивидуальным подходом к каждому клиенту.
                                 </p>
                                 
                                 <div class="about-features">
@@ -1796,65 +1850,65 @@
     <div id="about" class="page">
         <div class="container catalog-page">
             <div class="page-header">
-                <h1>О компании</h1>
-                <p>История нашего бренда и философия</p>
+                <h1>О компании DBTech</h1>
+                <p>Основано в 2025 году — новая эра технологий</p>
             </div>
             
             <div class="about-company">
                 <div class="container">
                     <div class="about-container">
                         <div class="about-content">
-                            <h2>Наша история</h2>
+                            <h2>Наша философия</h2>
                             <p style="font-size: 18px; color: var(--gray); line-height: 1.6; margin-bottom: 24px;">
-                                TechStore был основан в 2018 году как небольшой онлайн-магазин премиальной электроники. Начиная с нескольких моделей смартфонов, мы постепенно расширяли ассортимент, добавляя планшеты, ноутбуки и другую технику.
+                                В 2025 году мы создали DBTech с одной целью — изменить подход к покупке электроники. Мы отказались от устаревших форматов и создали пространство, где технологии встречаются с человеческим подходом.
                             </p>
                             
                             <p style="font-size: 18px; color: var(--gray); line-height: 1.6; margin-bottom: 24px;">
-                                Наша команда состоит из энтузиастов, которые сами являются пользователями и тестировщиками всей продукции. Мы не просто продаём технику — мы помогаем подобрать идеальное решение для ваших задач.
+                                Каждая единица техники, которую мы предлагаем, проходит личную проверку основателя. Мы не просто перепродаём устройства — мы создаём экосистему, где каждый клиент получает полную поддержку на всех этапах.
                             </p>
                             
                             <p style="font-size: 18px; color: var(--gray); line-height: 1.6; margin-bottom: 32px;">
-                                Сегодня мы работаем по всей России, осуществляем быструю доставку в любой город и предоставляем расширенную гарантию на всю продукцию.
+                                Наша миссия — делать передовые технологии доступными и понятными. Мы верим, что правильная электроника должна не просто выполнять функции, а улучшать качество жизни.
                             </p>
                             
                             <div class="about-features">
                                 <div class="feature">
                                     <div class="feature-icon">
-                                        <i class="fas fa-check"></i>
+                                        <i class="fas fa-star"></i>
                                     </div>
                                     <div class="feature-content">
-                                        <h4>Гарантия качества</h4>
-                                        <p>Все товары проходят многоуровневую проверку</p>
+                                        <h4>2025 — Новый старт</h4>
+                                        <p>Основали компанию с современным подходом к технологиям</p>
                                     </div>
                                 </div>
                                 
                                 <div class="feature">
                                     <div class="feature-icon">
-                                        <i class="fas fa-shipping-fast"></i>
+                                        <i class="fas fa-users"></i>
                                     </div>
                                     <div class="feature-content">
-                                        <h4>Быстрая доставка</h4>
-                                        <p>Доставка в любую точку России за 1-3 дня</p>
+                                        <h4>Клиентский подход</h4>
+                                        <p>Каждого клиента ведёт персональный менеджер</p>
                                     </div>
                                 </div>
                                 
                                 <div class="feature">
                                     <div class="feature-icon">
-                                        <i class="fas fa-headset"></i>
+                                        <i class="fas fa-gem"></i>
                                     </div>
                                     <div class="feature-content">
-                                        <h4>Поддержка</h4>
-                                        <p>Круглосуточная поддержка по любым вопросам</p>
+                                        <h4>Премиум сегмент</h4>
+                                        <p>Работаем только с лучшими брендами и моделями</p>
                                     </div>
                                 </div>
                                 
                                 <div class="feature">
                                     <div class="feature-icon">
-                                        <i class="fas fa-award"></i>
+                                        <i class="fas fa-bolt"></i>
                                     </div>
                                     <div class="feature-content">
-                                        <h4>Официальный дилер</h4>
-                                        <p>Работаем напрямую с производителями</p>
+                                        <h4>Скорость</h4>
+                                        <p>Молниеносная доставка и оперативная поддержка</p>
                                     </div>
                                 </div>
                             </div>
@@ -1862,7 +1916,7 @@
                         
                         <div class="about-image">
                             <div class="about-image-main">
-                                <i class="fas fa-history"></i>
+                                <i class="fas fa-rocket"></i>
                             </div>
                         </div>
                     </div>
@@ -1871,148 +1925,70 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА: БЛОГ -->
-    <div id="blog" class="page">
-        <div class="container catalog-page">
-            <div class="page-header">
-                <h1>Блог TechStore</h1>
-                <p>Полезные статьи, обзоры и новости из мира технологий</p>
+    <!-- СТРАНИЦА: КОНТАКТЫ - СОВРЕМЕННЫЙ СТИЛЬ -->
+    <div id="contacts" class="page contacts-page">
+        <div class="container">
+            <div class="contacts-header">
+                <h1>Свяжитесь с нами</h1>
+                <p>Современные способы связи для цифровой эпохи</p>
             </div>
             
-            <div class="blog-grid-page">
-                <div class="blog-post-page">
-                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Обзор iPhone 15" class="blog-post-image">
-                    <div class="blog-post-content-page">
-                        <div class="blog-post-meta-page">
-                            <span><i class="far fa-calendar"></i> 15 апреля 2024</span>
-                            <span><i class="far fa-clock"></i> 5 мин чтения</span>
-                        </div>
-                        <h3>Обзор iPhone 15 Pro: стоит ли обновляться?</h3>
-                        <p>Подробный разбор новинки от Apple: титановый корпус, процессор A17 Pro, камеры и производительность в реальных условиях.</p>
-                        <button class="btn btn-outline" style="width: 100%;" onclick="showNotification('Читаем статью про iPhone 15 Pro', 'success')">
-                            <i class="fas fa-book-open"></i> Читать статью
-                        </button>
+            <div class="contacts-grid">
+                <div class="contact-method">
+                    <div class="contact-icon-modern">
+                        <i class="fab fa-telegram"></i>
                     </div>
+                    <h3>Telegram</h3>
+                    <p>Самый быстрый способ связи. Отвечаем в течение 5 минут в рабочее время.</p>
+                    <a href="https://t.me/daab17" target="_blank" class="contact-link">
+                        <i class="fab fa-telegram"></i> @daab17
+                    </a>
                 </div>
                 
-                <div class="blog-post-page">
-                    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Выбор ноутбука" class="blog-post-image">
-                    <div class="blog-post-content-page">
-                        <div class="blog-post-meta-page">
-                            <span><i class="far fa-calendar"></i> 8 апреля 2024</span>
-                            <span><i class="far fa-clock"></i> 7 мин чтения</span>
-                        </div>
-                        <h3>Как выбрать ноутбук в 2024 году</h3>
-                        <p>Полное руководство по выбору ноутбука: от бюджетных моделей до игровых монстров. На что обращать внимание при покупке.</p>
-                        <button class="btn btn-outline" style="width: 100%;" onclick="showNotification('Читаем статью о выборе ноутбука', 'success')">
-                            <i class="fas fa-book-open"></i> Читать статью
-                        </button>
+                <div class="contact-method">
+                    <div class="contact-icon-modern">
+                        <i class="fas fa-comment-alt"></i>
                     </div>
+                    <h3>WhatsApp</h3>
+                    <p>Для голосовых сообщений и детальных консультаций по продуктам.</p>
+                    <a href="https://wa.me/79991234567" target="_blank" class="contact-link">
+                        <i class="fab fa-whatsapp"></i> +7 999 123-45-67
+                    </a>
                 </div>
                 
-                <div class="blog-post-page">
-                    <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Уход за техникой" class="blog-post-image">
-                    <div class="blog-post-content-page">
-                        <div class="blog-post-meta-page">
-                            <span><i class="far fa-calendar"></i> 1 апреля 2024</span>
-                            <span><i class="far fa-clock"></i> 4 мин чтения</span>
-                        </div>
-                        <h3>Как продлить срок службы техники</h3>
-                        <p>Простые советы по уходу за смартфонами, ноутбуками и другой электроникой, которые помогут сохранить их работоспособность.</p>
-                        <button class="btn btn-outline" style="width: 100%;" onclick="showNotification('Читаем статью об уходе за техникой', 'success')">
-                            <i class="fas fa-book-open"></i> Читать статью
-                        </button>
+                <div class="contact-method">
+                    <div class="contact-icon-modern">
+                        <i class="fas fa-envelope"></i>
                     </div>
+                    <h3>Email</h3>
+                    <p>Для официальных запросов, коммерческих предложений и документов.</p>
+                    <a href="mailto:contact@dbtech.com" class="contact-link">
+                        <i class="fas fa-envelope"></i> contact@dbtech.com
+                    </a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- СТРАНИЦА: КОНТАКТЫ -->
-    <div id="contacts" class="page">
-        <div class="container catalog-page">
-            <div class="page-header">
-                <h1>Контакты</h1>
-                <p>Свяжитесь с нами любым удобным способом</p>
+                
+                <div class="contact-method">
+                    <div class="contact-icon-modern">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Видеоконсультация</h3>
+                    <p>Персональный демо-звонок с показом товара. Запись по предварительной договорённости.</p>
+                    <a href="#" onclick="showNotification('Запросите видеоконсультацию в Telegram @daab17', 'success')" class="contact-link">
+                        <i class="fas fa-calendar-check"></i> Записаться
+                    </a>
+                </div>
             </div>
             
-            <div class="contacts-section-page">
-                <div class="container">
-                    <div class="contacts-container-page">
-                        <div class="contact-info-page">
-                            <h1>Свяжитесь с нами</h1>
-                            
-                            <div class="contact-item-page">
-                                <div class="contact-icon-page">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="contact-details-page">
-                                    <h4>Основатель</h4>
-                                    <p><strong>Даниил</strong></p>
-                                    <p>Лично курирует каждый проект</p>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-item-page">
-                                <div class="contact-icon-page">
-                                    <i class="fab fa-telegram"></i>
-                                </div>
-                                <div class="contact-details-page">
-                                    <h4>Telegram</h4>
-                                    <p>Быстрая связь и консультации</p>
-                                    <a href="https://t.me/daab17" target="_blank" class="telegram-badge-page">
-                                        <i class="fab fa-telegram"></i> @daab17
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-item-page">
-                                <div class="contact-icon-page">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="contact-details-page">
-                                    <h4>Email</h4>
-                                    <p>Для официальных запросов</p>
-                                    <p><strong>contact@techstore.com</strong></p>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-item-page">
-                                <div class="contact-icon-page">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="contact-details-page">
-                                    <h4>Режим работы</h4>
-                                    <p><strong>Пн-Пт:</strong> 10:00 - 20:00</p>
-                                    <p><strong>Сб-Вс:</strong> 11:00 - 18:00</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-form-page">
-                            <h4 style="color: white; margin-bottom: 24px;">Отправить сообщение</h4>
-                            <form id="contactFormPage">
-                                <div class="form-group">
-                                    <label for="name">Ваше имя</label>
-                                    <input type="text" id="name" class="form-control" placeholder="Как к вам обращаться?" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" class="form-control" placeholder="email@example.com" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="message">Сообщение</label>
-                                    <textarea id="message" class="form-control" placeholder="Чем мы можем помочь?" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                    <i class="fas fa-paper-plane"></i> Отправить сообщение
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+            <div class="founder-section">
+                <div class="founder-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="founder-info">
+                    <h3>Даниил, основатель DBTech</h3>
+                    <p>"Я лично отвечаю на каждый вопрос в Telegram. Верю, что настоящий бизнес строится на прямом контакте с клиентами, а не на безликих формах обратной связи."</p>
+                    <a href="https://t.me/daab17" target="_blank" class="telegram-badge-modern">
+                        <i class="fab fa-telegram"></i> Написать основателю в Telegram
+                    </a>
                 </div>
             </div>
         </div>
@@ -2023,16 +1999,16 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <h4>TechStore</h4>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px; line-height: 1.6;">Премиум электроника для тех, кто ценит качество и инновации.</p>
+                    <h4>DBTech</h4>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px; line-height: 1.6;">Премиум электроника 2025. Современный подход к технологиям.</p>
                     <div class="social-links">
                         <a href="https://t.me/daab17" class="social-link" target="_blank">
                             <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" onclick="showNotification('Instagram: @dbtech_official', 'success')">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" onclick="showNotification('YouTube: DBTech Reviews', 'success')">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -2054,7 +2030,6 @@
                         <li><a onclick="showPage('home')">Главная</a></li>
                         <li><a onclick="showPage('catalog')">Каталог</a></li>
                         <li><a onclick="showPage('about')">О компании</a></li>
-                        <li><a onclick="showPage('blog')">Блог</a></li>
                         <li><a onclick="showPage('contacts')">Контакты</a></li>
                     </ul>
                 </div>
@@ -2062,8 +2037,9 @@
                 <div>
                     <h4>Контакты</h4>
                     <ul class="footer-links">
-                        <li><a href="https://t.me/daab17" target="_blank">@daab17</a></li>
-                        <li><a href="mailto:contact@techstore.com">contact@techstore.com</a></li>
+                        <li><a href="https://t.me/daab17" target="_blank">@daab17 (Telegram)</a></li>
+                        <li><a href="mailto:contact@dbtech.com">contact@dbtech.com</a></li>
+                        <li><a href="https://wa.me/79991234567" target="_blank">WhatsApp</a></li>
                     </ul>
                     <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px;">
                         <i class="fas fa-user"></i> Даниил, основатель
@@ -2072,7 +2048,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 TechStore. Все права защищены.</p>
+                <p>&copy; 2025 DBTech. Основано в 2025 году. Все права защищены.</p>
             </div>
         </div>
     </footer>
@@ -2277,19 +2253,11 @@
             updateCartCount();
             
             // Загружаем корзину из localStorage
-            const savedCart = localStorage.getItem('techstore_cart');
+            const savedCart = localStorage.getItem('dbtech_cart');
             if (savedCart) {
                 cart = JSON.parse(savedCart);
                 updateCartCount();
             }
-            
-            // Инициализируем форму контактов
-            document.getElementById('contactFormPage').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('name').value;
-                showNotification(`Спасибо, ${name}! Мы свяжемся с вами в течение дня.`, 'success');
-                this.reset();
-            });
             
             // Загружаем популярные товары на страницу каталога
             loadPopularProducts();
@@ -2330,7 +2298,6 @@
                 'home': 'Главная',
                 'catalog': 'Каталог',
                 'about': 'О компании',
-                'blog': 'Блог',
                 'contacts': 'Контакты'
             };
             return pageNames[pageId] || pageId;
@@ -2385,7 +2352,7 @@
 
         // ===== АВТОРИЗАЦИЯ =====
         function checkAuth() {
-            const savedUser = localStorage.getItem('techstore_user');
+            const savedUser = localStorage.getItem('dbtech_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserUI();
@@ -2483,13 +2450,13 @@
                 return;
             }
             
-            let users = JSON.parse(localStorage.getItem('techstore_users')) || [];
+            let users = JSON.parse(localStorage.getItem('dbtech_users')) || [];
             
             if (action === 'login') {
                 const user = users.find(u => u.email === email && u.password === password);
                 if (user) {
                     currentUser = user;
-                    localStorage.setItem('techstore_user', JSON.stringify(currentUser));
+                    localStorage.setItem('dbtech_user', JSON.stringify(currentUser));
                     closeModal('auth-modal');
                     updateUserUI();
                     showNotification('Успешный вход!', 'success');
@@ -2511,10 +2478,10 @@
                 };
                 
                 users.push(newUser);
-                localStorage.setItem('techstore_users', JSON.stringify(users));
+                localStorage.setItem('dbtech_users', JSON.stringify(users));
                 
                 currentUser = newUser;
-                localStorage.setItem('techstore_user', JSON.stringify(newUser));
+                localStorage.setItem('dbtech_user', JSON.stringify(newUser));
                 
                 closeModal('auth-modal');
                 updateUserUI();
@@ -2524,7 +2491,7 @@
 
         function logout() {
             currentUser = null;
-            localStorage.removeItem('techstore_user');
+            localStorage.removeItem('dbtech_user');
             updateUserUI();
             cart = [];
             updateCart();
@@ -2651,7 +2618,7 @@
         }
 
         function updateCart() {
-            localStorage.setItem('techstore_cart', JSON.stringify(cart));
+            localStorage.setItem('dbtech_cart', JSON.stringify(cart));
             updateCartCount();
             updateCartModal();
         }
@@ -2821,7 +2788,7 @@
             
             // Создаем объект заказа
             const order = {
-                id: 'ORD-' + Date.now(),
+                id: 'DBT-' + Date.now(),
                 date: new Date().toLocaleString('ru-RU'),
                 status: 'Новый',
                 customer: {
@@ -2853,13 +2820,13 @@
             closeModal('checkout-modal');
             
             // Показываем уведомление об успешном оформлении
-            showNotification(`Заказ ${order.id} оформлен! Сумма: ${total.toLocaleString()} ₽. Мы свяжемся с вами для подтверждения.`, 'success');
+            showNotification(`Заказ ${order.id} оформлен! Сумма: ${total.toLocaleString()} ₽. Мы свяжемся с вами в Telegram для подтверждения.`, 'success');
         }
 
         function saveOrder(order) {
-            let orders = JSON.parse(localStorage.getItem('techstore_orders')) || [];
+            let orders = JSON.parse(localStorage.getItem('dbtech_orders')) || [];
             orders.push(order);
-            localStorage.setItem('techstore_orders', JSON.stringify(orders));
+            localStorage.setItem('dbtech_orders', JSON.stringify(orders));
         }
 
         // ===== МОДАЛЬНЫЕ ОКНА =====
