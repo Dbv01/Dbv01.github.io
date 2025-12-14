@@ -2310,13 +2310,6 @@
         let cart = [];
         let currentCategory = 'all';
         
-        // ===== GOOGLE SHEETS ИНТЕГРАЦИЯ =====
-        // ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_dbATprzGSlXTIx7U7RHceE3KIfAtls9rwN0opYzCx0ovq9lf6KQSLBf2pc9wFvwZ/exec';
-        
-        // Сохраняем URL в localStorage для будущего использования
-        localStorage.setItem('dbtech_google_script_url', GOOGLE_SCRIPT_URL);
-        
         // Данные товаров по категориям
         const productsData = {
             smartphones: [
@@ -2383,156 +2376,7 @@
             
             // Загружаем популярные товары на страницу каталога
             loadPopularProducts();
-            
-            // Тестируем соединение с Google Sheets
-            setTimeout(() => {
-                testGoogleSheetsConnection();
-            }, 2000);
-            
-            // Показываем подсказку в консоли
-            setTimeout(() => {
-                console.log('%c🛠 DBTech Admin Tools', 'color: #007AFF; font-size: 16px; font-weight: bold;');
-                console.log('%cИспользуйте openAdminPanel() для доступа к админ-панели', 'color: #666;');
-            }, 3000);
         });
-
-        // ===== GOOGLE SHEETS ФУНКЦИИ =====
-        
-        // Функция для проверки соединения с Google Sheets
-        async function testGoogleSheetsConnection() {
-            try {
-                console.log('🔗 Проверяю соединение с Google Sheets...');
-                
-                // Пробуем получить список заказов
-                const response = await fetch(GOOGLE_SCRIPT_URL + '?t=' + Date.now(), {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('✅ Google Sheets подключен! Заказов:', data.length || 0);
-                    return true;
-                } else {
-                    console.error('❌ Ошибка подключения:', response.status);
-                    return false;
-                }
-                
-            } catch (error) {
-                console.error('❌ Ошибка теста соединения:', error);
-                return false;
-            }
-        }
-
-        // Улучшенная функция отправки заказа в Google Sheets
-        async function sendOrderToGoogleSheets(order) {
-            try {
-                console.log('📤 Отправляю заказ в Google Sheets:', order.id);
-                
-                // Подготавливаем данные для отправки
-                const orderData = {
-                    orderId: order.id,
-                    customer: {
-                        name: order.customer.name,
-                        phone: order.customer.phone,
-                        email: order.customer.email || '',
-                        address: order.customer.address
-                    },
-                    items: order.items.map(item => ({
-                        name: item.name,
-                        quantity: item.quantity,
-                        price: item.price
-                    })),
-                    total: order.total
-                };
-                
-                console.log('📝 Данные для отправки:', orderData);
-                
-                // Добавляем timestamp для предотвращения кеширования
-                const urlWithCache = GOOGLE_SCRIPT_URL + '?t=' + Date.now();
-                
-                // Отправляем POST запрос
-                const response = await fetch(urlWithCache, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData)
-                });
-                
-                const result = await response.json();
-                console.log('📨 Ответ от Google Sheets:', result);
-                
-                if (result.success) {
-                    console.log('✅ Заказ успешно сохранен в Google Sheets!');
-                    return {
-                        success: true,
-                        message: result.message,
-                        rowNumber: result.rowNumber,
-                        orderId: result.orderId
-                    };
-                } else {
-                    console.error('❌ Ошибка от Google Sheets:', result);
-                    return {
-                        success: false,
-                        error: result.error || result.message || 'Неизвестная ошибка'
-                    };
-                }
-                
-            } catch (error) {
-                console.error('❌ Ошибка при отправке в Google Sheets:', error);
-                return {
-                    success: false,
-                    error: error.message
-                };
-            }
-        }
-
-        // Функция для загрузки заказов из Google Sheets
-        async function loadOrdersFromGoogleSheets() {
-            try {
-                showNotification('📥 Загружаю заказы из Google Sheets...', 'success');
-                
-                const response = await fetch(GOOGLE_SCRIPT_URL + '?t=' + Date.now(), {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    const orders = await response.json();
-                    console.log('📊 Заказов из Google Sheets:', orders.length);
-                    
-                    // Выводим в консоль
-                    if (orders.length > 0) {
-                        console.table(orders);
-                        showNotification(`✅ Загружено ${orders.length} заказов из Google Sheets`, 'success');
-                    } else {
-                        showNotification('📭 В Google Sheets пока нет заказов', 'success');
-                    }
-                    
-                    // Открываем таблицу
-                    openGoogleSheets();
-                    
-                    return orders;
-                } else {
-                    throw new Error(`HTTP ошибка: ${response.status}`);
-                }
-                
-            } catch (error) {
-                console.error('❌ Ошибка загрузки:', error);
-                showNotification(`❌ Ошибка загрузки: ${error.message}`, 'error');
-                return [];
-            }
-        }
-
-        // Функция для открытия Google Sheets
-        function openGoogleSheets() {
-            window.open('https://docs.google.com/spreadsheets/d/1o-ssivWE8kJNo8FUgIxt9fj-xt0hdYyGKB1ISEBYbyU/edit', '_blank');
-        }
 
         // ===== МОБИЛЬНОЕ МЕНЮ =====
         function initMobileMenu() {
@@ -2671,11 +2515,6 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserUI();
-                
-                // Добавляем кнопки админки если пользователь - админ
-                if (currentUser.email === 'danya@admin.com') {
-                    setTimeout(addAdminButtons, 500);
-                }
             }
         }
 
@@ -2780,11 +2619,6 @@
                     closeModal('auth-modal');
                     updateUserUI();
                     showNotification('Успешный вход!', 'success');
-                    
-                    // Добавляем кнопки админки если пользователь - админ
-                    if (currentUser.email === 'danya@admin.com') {
-                        addAdminButtons();
-                    }
                 } else {
                     showNotification('Неверный email или пароль', 'error');
                 }
@@ -2811,11 +2645,6 @@
                 closeModal('auth-modal');
                 updateUserUI();
                 showNotification('Регистрация успешна!', 'success');
-                
-                // Добавляем кнопки админки если пользователь - админ
-                if (currentUser.email === 'danya@admin.com') {
-                    addAdminButtons();
-                }
             }
         }
 
@@ -2826,12 +2655,6 @@
             cart = [];
             updateCart();
             showNotification('Вы вышли из аккаунта', 'success');
-            
-            // Удаляем кнопки админки
-            const adminButtons = document.querySelector('.admin-buttons');
-            if (adminButtons) {
-                adminButtons.remove();
-            }
         }
 
         // ===== КАТАЛОГ ТОВАРОВ =====
@@ -3093,8 +2916,7 @@
             document.getElementById('checkout-total-price').textContent = total.toLocaleString() + ' ₽';
         }
 
-        // Основная функция оформления заказа
-        async function submitOrder() {
+        function submitOrder() {
             // Получаем данные из формы
             const name = document.getElementById('checkout-name').value.trim();
             const phone = document.getElementById('checkout-phone').value.trim();
@@ -3140,61 +2962,25 @@
                 total: total
             };
             
-            // Показываем уведомление о начале оформления
-            showNotification('🔄 Оформляем заказ...', 'success');
-            
-            // 1. Сохраняем заказ в localStorage
+            // Сохраняем заказ в localStorage
             saveOrder(order);
-            console.log('💾 Заказ сохранен локально:', order);
             
-            // 2. Пытаемся отправить в Google Sheets
-            const googleSheetsResult = await sendOrderToGoogleSheets(order);
-            
-            if (googleSheetsResult.success) {
-                // Обновляем заказ с информацией из Google Sheets
-                order.googleSheets = {
-                    saved: true,
-                    rowNumber: googleSheetsResult.rowNumber,
-                    savedAt: new Date().toISOString()
-                };
-                saveOrder(order); // Пересохраняем с метаданными
-                
-                // Показываем успешное уведомление
-                showNotification(`✅ Заказ ${order.id} сохранен в Google Sheets!`, 'success');
-            } else {
-                // Сохраняем информацию об ошибке
-                order.googleSheets = {
-                    saved: false,
-                    error: googleSheetsResult.error,
-                    attemptedAt: new Date().toISOString()
-                };
-                saveOrder(order);
-                
-                // Показываем предупреждение
-                showNotification(`⚠️ Заказ сохранен локально. Ошибка Google Sheets: ${googleSheetsResult.error}`, 'error');
-            }
-            
-            // 3. Очищаем корзину
+            // Очищаем корзину
             cart = [];
             updateCart();
             
-            // 4. Очищаем форму
+            // Очищаем форму
             document.getElementById('checkout-name').value = '';
             document.getElementById('checkout-phone').value = '';
             document.getElementById('checkout-email').value = '';
             document.getElementById('checkout-address').value = '';
             document.getElementById('checkout-comment').value = '';
             
-            // 5. Закрываем модалку
+            // Закрываем модалку
             closeModal('checkout-modal');
             
-            // 6. Показываем финальное уведомление
-            showNotification(`🎉 Заказ ${order.id} оформлен! Сумма: ${total.toLocaleString()} ₽. Мы скоро свяжемся с вами.`, 'success');
-            
-            // 7. Автоматически открываем Telegram через 3 секунды
-            setTimeout(() => {
-                window.open('https://t.me/daab17', '_blank');
-            }, 3000);
+            // Показываем уведомление об успешном оформлении
+            showNotification(`Заказ ${order.id} оформлен! Сумма: ${total.toLocaleString()} ₽. Мы свяжемся с вами в Telegram для подтверждения.`, 'success');
         }
 
         function saveOrder(order) {
@@ -3202,117 +2988,6 @@
             orders.push(order);
             localStorage.setItem('dbtech_orders', JSON.stringify(orders));
         }
-
-        // ===== АДМИН-ПАНЕЛЬ ФУНКЦИИ =====
-        
-        // Функция для просмотра всех заказов
-        function showAllOrders() {
-            // Локальные заказы
-            const localOrders = JSON.parse(localStorage.getItem('dbtech_orders')) || [];
-            
-            // Формируем сообщение
-            let message = `📊 ЗАКАЗЫ DBTech\n`;
-            message += `====================\n`;
-            message += `Локальных заказов: ${localOrders.length}\n\n`;
-            
-            if (localOrders.length > 0) {
-                localOrders.forEach((order, index) => {
-                    message += `${index + 1}. ${order.id}\n`;
-                    message += `   👤 ${order.customer.name}\n`;
-                    message += `   📞 ${order.customer.phone}\n`;
-                    message += `   💰 ${order.total.toLocaleString()} ₽\n`;
-                    message += `   📦 Товаров: ${order.items.length}\n`;
-                    
-                    // Информация о Google Sheets
-                    if (order.googleSheets) {
-                        if (order.googleSheets.saved) {
-                            message += `   ✅ В Google Sheets: строка ${order.googleSheets.rowNumber || '?'}\n`;
-                        } else {
-                            message += `   ❌ Не в Google Sheets: ${order.googleSheets.error || 'ошибка'}\n`;
-                        }
-                    } else {
-                        message += `   ⚠️ Не отправлялся в Google Sheets\n`;
-                    }
-                    
-                    message += `   ---\n`;
-                });
-            } else {
-                message += `Нет заказов\n`;
-            }
-            
-            message += `\n📋 Для просмотра таблицы:\n`;
-            message += `https://docs.google.com/spreadsheets/d/1o-ssivWE8kJNo8FUgIxt9fj-xt0hdYyGKB1ISEBYbyU/edit`;
-            
-            // Выводим в консоль
-            console.log(message);
-            
-            // Показываем уведомление
-            showNotification(`📊 ${localOrders.length} локальных заказов. Откройте консоль (F12 → Console) для просмотра.`, 'success');
-        }
-
-        // Добавляем кнопки админки
-        function addAdminButtons() {
-            // Проверяем, авторизован ли админ
-            if (currentUser && currentUser.email === 'danya@admin.com') {
-                // Находим контейнер навигации
-                const navLinks = document.querySelector('.nav-links');
-                
-                if (navLinks && !document.querySelector('.admin-buttons')) {
-                    // Создаем контейнер для кнопок админки
-                    const adminContainer = document.createElement('div');
-                    adminContainer.className = 'admin-buttons';
-                    adminContainer.style.display = 'flex';
-                    adminContainer.style.gap = '10px';
-                    adminContainer.style.marginLeft = 'auto';
-                    adminContainer.style.marginRight = '15px';
-                    
-                    // Кнопка "Заказы"
-                    const ordersBtn = document.createElement('button');
-                    ordersBtn.className = 'btn-icon';
-                    ordersBtn.title = 'Просмотр заказов';
-                    ordersBtn.innerHTML = '<i class="fas fa-list"></i>';
-                    ordersBtn.onclick = showAllOrders;
-                    adminContainer.appendChild(ordersBtn);
-                    
-                    // Кнопка "Google Sheets"
-                    const sheetsBtn = document.createElement('button');
-                    sheetsBtn.className = 'btn-icon';
-                    sheetsBtn.title = 'Открыть Google Sheets';
-                    sheetsBtn.innerHTML = '<i class="fas fa-table"></i>';
-                    sheetsBtn.onclick = openGoogleSheets;
-                    adminContainer.appendChild(sheetsBtn);
-                    
-                    // Кнопка "Загрузить из Sheets"
-                    const loadBtn = document.createElement('button');
-                    loadBtn.className = 'btn-icon';
-                    loadBtn.title = 'Загрузить заказы из Google Sheets';
-                    loadBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
-                    loadBtn.onclick = loadOrdersFromGoogleSheets;
-                    adminContainer.appendChild(loadBtn);
-                    
-                    // Добавляем в навигацию
-                    navLinks.appendChild(adminContainer);
-                }
-            }
-        }
-
-        // Функция для открытия админ-панели
-        window.openAdminPanel = function() {
-            showNotification('🔧 Панель админа активирована', 'success');
-            addAdminButtons();
-            
-            // Показываем доступные команды в консоли
-            console.log(`
-            🛠 ДОСТУПНЫЕ КОМАНДЫ АДМИНА:
-            ============================
-            showAllOrders() - показать все локальные заказы
-            openGoogleSheets() - открыть таблицу Google Sheets
-            loadOrdersFromGoogleSheets() - загрузить заказы из Google Sheets
-            testGoogleSheetsConnection() - проверить соединение
-            openAdminPanel() - добавить кнопки админки в навигацию
-            ============================
-            `);
-        };
 
         // ===== МОДАЛЬНЫЕ ОКНА =====
         function openModal(modalId) {
